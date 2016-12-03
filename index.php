@@ -23,10 +23,11 @@ require_once "connect.php";
 
 <body>
 
-<form action="index.php" method="post">
+<form action="sql_formatter.php" method="post">
 
 <h3>Wybierz wydział: </h3>
 <select name="wydzial">
+<option value="">---</option>
 <?php
     $result = $polaczenie->query("SELECT * FROM wydzial");
     while ($row=mysqli_fetch_assoc($result)):    
@@ -37,7 +38,8 @@ require_once "connect.php";
 
 <h3>Wybierz kierunek: </h3>
 
-<select>
+<select name="kierunek">
+<option value="">---</option>
 <?php
     $result = $polaczenie->query("SELECT rok,kierunek FROM rocznik");
     while ($row=mysqli_fetch_assoc($result)):    
@@ -48,7 +50,8 @@ require_once "connect.php";
 </select> <br /> <br />
 
 <h3>Wybierz prowadzącego:</h3>
-<select>
+<select name="prowadzacy">
+<option value="">---</option>
 <?php
     $result = $polaczenie->query("SELECT stopien,imie,nazwisko FROM prowadzacy");
     while ($row=mysqli_fetch_assoc($result)):    
@@ -57,6 +60,7 @@ require_once "connect.php";
 ?>
 
 </select> <br /> <br />
+<input type="submit" value="Szukaj"/>
 </form>
 
 	<table>
