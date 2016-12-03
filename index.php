@@ -1,11 +1,16 @@
 ﻿<?php
+session_start();
 require_once "connect.php";
 	$polaczenie = @new mysqli($host, $db_user, $db_password, $db_name);
+	
 	if ($polaczenie->connect_errno!=0)
 	{
 		echo "Błąd połączenia numer: ".$polaczenie->connect_errno.' <br/> W celu otrzymania pomocy skontaktuj się z administratorem: <a href="mailto:m.mytych@o2.pl">m.mytych@o2.pl</a>';
 		exit();
 	}
+	$polaczenie -> query("SET NAMES 'utf8'");
+	
+	if (isset($_SESSION['sql'])) echo $_SESSION['sql'];
 ?>
 
 
@@ -55,7 +60,7 @@ require_once "connect.php";
 <?php
     $result = $polaczenie->query("SELECT stopien,imie,nazwisko FROM prowadzacy");
     while ($row=mysqli_fetch_assoc($result)):    
-       echo "<option value=".$row['nazwisko'].">".$row['stopien']." ".$row['imie']." ".$row['nazwisko']."</option>";
+       echo "<option value=".$row['imie'].">".$row['stopien']." ".$row['imie']." ".$row['nazwisko']."</option>";
     endwhile;
 ?>
 
@@ -74,7 +79,7 @@ require_once "connect.php";
 			$sql='SELECT * FROM przedmiot';
 			$rezultat=$polaczenie->query($sql);
 			while ($row=mysqli_fetch_assoc($rezultat)):
-				echo "<tr> <td> ".$row['nazwa']." </td></tr>";	
+				echo '<tr> <td> <a href="http://onet.pl"> '.$row['nazwa']." </a></td></tr>";	
 			endwhile;
 		echo "</table>";
 		$polaczenie->close();
