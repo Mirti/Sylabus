@@ -10,7 +10,6 @@ require_once "connect.php";
 	}
 	$polaczenie -> query("SET NAMES 'utf8'");
 	
-	if (isset($_SESSION['sql'])) echo $_SESSION['sql'];
 ?>
 
 
@@ -19,7 +18,7 @@ require_once "connect.php";
 <html lang="pl">
 <head>
   <meta charset="utf-8">
-  <title>The HTML5 Herald</title>
+  <title>Super sylabus kurwo</title>
   <meta name="description" content="The HTML5 Herald">
   <meta name="author" content="SitePoint">
 
@@ -41,6 +40,19 @@ require_once "connect.php";
 ?>
 </select> <br /> <br />
 
+<h3>Wybierz rocznik: </h3>
+
+<select name="rok">
+<option value="">---</option>
+<?php
+    $result = $polaczenie->query("SELECT rok FROM rocznik");
+    while ($row=mysqli_fetch_assoc($result)):    
+       echo "<option value=".$row['rok'].">".$row['rok']."</option>";
+    endwhile;
+?>
+
+</select> <br /> <br />
+
 <h3>Wybierz kierunek: </h3>
 
 <select name="kierunek">
@@ -48,7 +60,7 @@ require_once "connect.php";
 <?php
     $result = $polaczenie->query("SELECT rok,kierunek FROM rocznik");
     while ($row=mysqli_fetch_assoc($result)):    
-       echo "<option value=".$row['kierunek'].">".$row['rok']." ".$row['kierunek']."</option>";
+       echo "<option value=".$row['kierunek'].">".$row['kierunek']."</option>";
     endwhile;
 ?>
 
@@ -68,18 +80,20 @@ require_once "connect.php";
 <input type="submit" value="Szukaj"/>
 </form>
 
-	<table>
+	<table border=1>
 		<th>Nazwa przedmiotu</th>
 		<th>Prowadzący</th>
+		<th>Typ zajęć</th>
+		<th>Rok</th>
 		<th>Kierunek</th>
-		<th>Semestr</th>
+		<th>Tryb studiów</th>
 
   <?php
 
 			$sql='SELECT * FROM przedmiot';
-			$rezultat=$polaczenie->query($sql);
+			$rezultat=$polaczenie->query($_SESSION['sql']);
 			while ($row=mysqli_fetch_assoc($rezultat)):
-				echo '<tr> <td> <a href="http://onet.pl"> '.$row['nazwa']." </a></td></tr>";	
+				echo '<tr> <td> <a href="http://onet.pl"> '.$row['nazwa']." </a></td> <td>".$row['imie']." ".$row['nazwisko']."</tr>";	
 			endwhile;
 		echo "</table>";
 		$polaczenie->close();
