@@ -149,10 +149,9 @@ require_once "connect.php";
           <tbody>
             <?php
 
-			$sql='SELECT * FROM przedmiot';
 			$rezultat=@$polaczenie->query($_SESSION['sql']);
 			while ($row=@mysqli_fetch_assoc($rezultat)):
-				echo '<tr> <td> <a href="https://youtu.be/dw3fHh6oZqA?t=51s"> '.$row['nazwa']." </a></td> <td>".$row['imie']." ".$row['nazwisko']."<td>sadas</td><td>sadas</td><td>sadas</td><td>sadas</td></tr>";	
+				echo '<tr> <td> <a href="https://youtu.be/dw3fHh6oZqA?t=51s"> '.$row['nazwa']." </a></td> <td>".$row['imie']." ".$row['nazwisko']."<td>".$row['typ_zajec']."</td><td>".$row['rok']."</td><td>".$row['kierunek']."</td><td>".$row['tryb']."</td></tr>";	
 			endwhile;
 		echo "</tbody>";
 		$polaczenie->close();
