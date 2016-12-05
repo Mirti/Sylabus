@@ -45,40 +45,10 @@ require_once "connect.php";
 
 
   <body>
-  Zalogowany user: 
   <?php
-  echo $_SESSION['imie']." ".$_SESSION['nazwisko'];
+	echo $_SESSION['test'];
+  $polaczenie->close();
   ?>
-  <br />
-  <a href="logout_script.php">Wyloguj</a>
-  <br /> <br />
-  Twoje przedmioty:
-   <table id="myTable" class="table table-hover" cellspacing="0" width="100%">
-          <thead>
-            <tr>
-              <th id="wierszI">Nazwa przedmiotu</th>
-              <th id="wierszI">Typ zajęć</th>
-              <th id="wierszI">Rok</th>
-              <th id="wierszI">Kierunek</th>
-              <th id="wierszI">Tryb studiów</th>
-			  <th id="wierszI">Edycja</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            <?php
-
-			$sql="SELECT p.nazwa, p.typ_zajec, n.imie,n.nazwisko, r.rok, r.kierunek, r.tryb FROM przedmiot p, prowadzacy n, rocznik r, wydzial w, przedmiot_prowadzacy pp WHERE r.wydzial_id=w.wydzial_id AND p.rocznik_id=r.rocznik_id and p.przedmiot_id=pp.przedmiot_id AND n.prowadzacy_id=pp.prowadzacy_id AND n.prowadzacy_id=".$_SESSION['prowadzacy_id'];
-			$rezultat=@$polaczenie->query($sql);
-			while ($row=@mysqli_fetch_assoc($rezultat)):
-				echo '<tr> <td> <a href="https://youtu.be/dw3fHh6oZqA?t=51s"> '.$row['nazwa']." </a></td> <td>".$row['typ_zajec']."</td><td>".$row['rok']."</td><td>".$row['kierunek']."</td><td>".$row['tryb'].'</td><td><img src="images/edit_icon.png" /></td></tr>';	
-			endwhile;
-		echo "</tbody>";
-		$polaczenie->close();
-?>
-          </table>
-  
-   
    
   </body>
 </html>
