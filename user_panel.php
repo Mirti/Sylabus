@@ -68,12 +68,12 @@ require_once "connect.php";
           <tbody>
             <?php
 
-			$sql="SELECT p.nazwa, p.typ_zajec, n.imie,n.nazwisko, r.rok, r.kierunek, r.tryb FROM przedmiot p, prowadzacy n, rocznik r, wydzial w, przedmiot_prowadzacy pp WHERE r.wydzial_id=w.wydzial_id AND p.rocznik_id=r.rocznik_id and p.przedmiot_id=pp.przedmiot_id AND n.prowadzacy_id=pp.prowadzacy_id AND n.prowadzacy_id=".$_SESSION['prowadzacy_id'];
+			$sql="SELECT p.przedmiot_id, p.nazwa, p.typ_zajec, n.imie,n.nazwisko, r.rok, r.kierunek, r.tryb FROM przedmiot p, prowadzacy n, rocznik r, wydzial w, przedmiot_prowadzacy pp WHERE r.wydzial_id=w.wydzial_id AND p.rocznik_id=r.rocznik_id and p.przedmiot_id=pp.przedmiot_id AND n.prowadzacy_id=pp.prowadzacy_id AND n.prowadzacy_id=".$_SESSION['prowadzacy_id'];
 			$rezultat=@$polaczenie->query($sql);
 			while ($row=@mysqli_fetch_assoc($rezultat)):
-				echo '<tr> <td> <a href="https://youtu.be/dw3fHh6oZqA?t=51s"> '.$row['nazwa']." </a></td> <td>".$row['typ_zajec']."</td><td>".$row['rok']."</td><td>".$row['kierunek']."</td><td>".$row['tryb'].'</td><td><img src="images/edit_icon.png" /></td></tr>';	
+				echo '<tr> <td> <a href="https://youtu.be/dw3fHh6oZqA?t=51s"> '.$row['nazwa']." </a></td> <td>".$row['typ_zajec']."</td><td>".$row['rok']."</td><td>".$row['kierunek']."</td><td>".$row['tryb'].'</td><td><form action="sylabus.php" method="post"><input type="hidden" name="p_id" value='.$row['przedmiot_id'].'><input type="image" src="images/edit_icon.png" alt="Submit"/></form></td></tr>';	
 			endwhile;
-		echo "</tbody>";
+		echo "</tbody>"; 
 		$polaczenie->close();
 ?>
           </table>

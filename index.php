@@ -47,11 +47,7 @@ require_once "connect.php";
 
     <div id="caly_blok">
       <div id="naglowek">Sylabusy</div>
-
-
-
       <div id="srodek">
-
         <form action="sql_formatter.php" method="post">
           </br>
           </br>
@@ -130,8 +126,6 @@ require_once "connect.php";
           </table>
 
         </form>
-
-
         </br>
         </br>
         <table id="myTable" class="table table-hover" cellspacing="0" width="100%">
@@ -149,6 +143,7 @@ require_once "connect.php";
           <tbody>
             <?php
 
+			$sql='SELECT * FROM przedmiot';
 			$rezultat=@$polaczenie->query($_SESSION['sql']);
 			while ($row=@mysqli_fetch_assoc($rezultat)):
 				echo '<tr> <td> <a href="https://youtu.be/dw3fHh6oZqA?t=51s"> '.$row['nazwa']." </a></td> <td>".$row['imie']." ".$row['nazwisko']."<td>".$row['typ_zajec']."</td><td>".$row['rok']."</td><td>".$row['kierunek']."</td><td>".$row['tryb']."</td></tr>";	
@@ -157,11 +152,6 @@ require_once "connect.php";
 		$polaczenie->close();
 ?>
           </table>
-
-
-
-
-
         <script>
           $(document).ready(function(){
           $('#myTable').DataTable({
@@ -184,19 +174,7 @@ require_once "connect.php";
           });
           });
         </script>
-
-
-
-
-
-
-
-
       </div>
-
-
-
-      <div id="stopka">stopka strony, a na chuj nam ona</div>
     </div>
 
   </body>

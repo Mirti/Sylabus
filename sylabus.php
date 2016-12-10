@@ -46,9 +46,26 @@ require_once "connect.php";
 
   <body>
   <?php
-	echo $_SESSION['test'];
+	$id=$_POST['p_id'];
+	$sql= 'SELECT * FROM przedmiot p, efekt e, przedmiot_efekt pe, rocznik r WHERE p.przedmiot_id=pe.przedmiot_id AND p.rocznik_id=r.rocznik_id AND e.efekt_id=pe.efekt_id AND p.przedmiot_id='.$id;
+	$rezultat= $polaczenie->query($sql);
+	$wynik=mysqli_fetch_assoc($rezultat);
+  ?>
+	<form action="save_to_db.php" method="post">
+	<?php
+echo	'Nazwa przedmiotu: <input type="text" value="'.$wynik['nazwa'].'"/> <br /> <br />';
+echo	'Typ zajęć: <select><option value="'.$wynik['typ_zajec'].'"/></select> <br /> <br />';
+echo	'Kierunek: <input type="text" value="'.$wynik['kierunek'].'"/> <br /> <br />';
+echo	'Rok: <input type="text" value="'.$wynik['rok'].'"/> <br /> <br />';
+echo	'Liczba godzin: <input type="text" value="'.$wynik['liczba_godzin'].'"/> <br /> <br />';
+echo	'Sposób zaliczenia: <input type="text" value="'.$wynik['sposob_zaliczenia'].'"/> <br /> <br />';
+echo	'ECTS: <input type="text" value="'.$wynik['ECTS'].'"/> <br /> <br />';
+	?>
+	<input type="button" onclick="location.href='user_panel.php';" value="Powrót" /> <input type="submit" value="Zapisz zmiany" />
+	
+	</form>
+  <?php
   $polaczenie->close();
   ?>
-   
   </body>
 </html>
