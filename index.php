@@ -22,9 +22,7 @@ require_once "connect.php";
       <meta name="description" content="The HTML5 Herald">
         <meta name="author" content="SitePoint">
 
-          <link rel="stylesheet" href="css/styles.css?v=1.0">
-            <link rel="stylesheet" href="css/kurwa.css">
-              <link rel="stylesheet" href="css/tabela.css">
+            <link rel="stylesheet" href="css/glowny.css">
 
                 <!-- butstrap-->
                 <!-- Latest compiled and minified CSS -->
@@ -46,8 +44,13 @@ require_once "connect.php";
   <body>
 
     <div id="caly_blok">
-      <div id="naglowek">Sylabusy</div>
+      <div id="naglowek">Sylabus Uniwersytetu Rzeszowskiego</div>
+
+
+
       <div id="srodek">
+        <img src="images/logo-500x500.jpg" alt="Logo Uniwersytetu" height="92" width="92">
+          
         <form action="sql_formatter.php" method="post">
           </br>
           </br>
@@ -113,19 +116,21 @@ require_once "connect.php";
 
                   </select>
                 </td>
-                <td>chuje muje</td>
-                <td colspan="2">wybieranie</td>
+                <td></td>
+                <td colspan="2"></td>
               </tr>
               <tr>
-                <td colspan="5"></td>
-                <td>
-                  <input type="submit" class="btn btn-default" value="Szukaj"/>
+                <td colspan="4"></td>
+                <td colspan="2">
+                  <input type="submit" style="width:100%;" class="btn btn-primary" value="Szukaj"/>
                 </td>
               </tr>
             </tbody>
           </table>
 
         </form>
+
+
         </br>
         </br>
         <table id="myTable" class="table table-hover" cellspacing="0" width="100%">
@@ -143,7 +148,6 @@ require_once "connect.php";
           <tbody>
             <?php
 
-			$sql='SELECT * FROM przedmiot';
 			$rezultat=@$polaczenie->query($_SESSION['sql']);
 			while ($row=@mysqli_fetch_assoc($rezultat)):
 				echo '<tr> <td> <a href="https://youtu.be/dw3fHh6oZqA?t=51s"> '.$row['nazwa']." </a></td> <td>".$row['imie']." ".$row['nazwisko']."<td>".$row['typ_zajec']."</td><td>".$row['rok']."</td><td>".$row['kierunek']."</td><td>".$row['tryb']."</td></tr>";	
@@ -152,6 +156,11 @@ require_once "connect.php";
 		$polaczenie->close();
 ?>
           </table>
+
+
+
+
+
         <script>
           $(document).ready(function(){
           $('#myTable').DataTable({
@@ -174,8 +183,17 @@ require_once "connect.php";
           });
           });
         </script>
+
+
       </div>
+
+
+
+
     </div>
 
   </body>
+  <footer class="footer" style="bottom:0;width: 100%;background-color:#071778;text-align: center;font-size: 1.4em;line-height: 1.5em;color: #f1f1f1;">
+    Aleja Tadeusza Rejtana 16C, 35-001 Rzeszów
+  </footer>
 </html>
