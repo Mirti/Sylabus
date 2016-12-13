@@ -120,6 +120,6 @@ require_once "connect.php";
 
   </body>
   <footer class="footer" style="bottom:0px;width: 100%;background-color:#071778;text-align: center;font-size: 1.4em;line-height: 1.5em;color: #c8c8c8;">
-    Aleja Tadeusza Rejtana 16C, 35-001 Rzeszów </br>
+    Aleja Tadeusza Rejtana 16C, 35-001 Rzeszów
   </footer>
 </html>

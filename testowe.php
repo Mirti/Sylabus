@@ -18,9 +18,9 @@ require_once "connect.php";
 <html lang="pl">
   <head>
     <meta charset="utf-8">
-      <title>Super sylabus kurwo</title>
-      <meta name="description" content="The HTML5 Herald">
-        <meta name="author" content="SitePoint">
+           <title>Sylabus URz</title>
+      <meta name="description" content="Sylabus Uniwersytetu Rzeszowskiego">
+        <meta name="author" content="Artur Nykiel, Marcin Mytych">
 
           <link rel="stylesheet" href="css/styles.css?v=1.0">
             <link rel="stylesheet" href="css/userpanelcss.css">

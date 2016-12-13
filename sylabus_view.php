@@ -50,13 +50,13 @@ require_once "connect.php";
 
 
       <div id="srodek">
-           <a href="index.php"><img src="images/logo-500x500.jpg" alt="Logo Uniwersytetu" height="92" width="92"></a>
+         <a href="index.php"><img src="images/logo-500x500.jpg" alt="Logo Uniwersytetu" height="92" width="92"></a>
 
 
 
           <?php
-	$id=$_POST['p_id'];
-	$_SESSION['edit_id']=$id;
+	$id=$_POST['prz_id'];
+	echo $id;
 	$sql= 'SELECT * FROM przedmiot p, efekt e, przedmiot_efekt pe, rocznik r WHERE p.przedmiot_id=pe.przedmiot_id AND p.rocznik_id=r.rocznik_id AND e.efekt_id=pe.efekt_id AND p.przedmiot_id='.$id;
 	$rezultat= $polaczenie->query($sql);
 	$wynik=mysqli_fetch_assoc($rezultat);
@@ -67,42 +67,38 @@ require_once "connect.php";
               <tr>
                 <td>Nazwa przedmiotu:</td>
                 <td colspan="2">
-                  <?php echo	'<input type="text" name="nazwa" class="form-control" value="'.$wynik['nazwa'].'"/> <br /> <br />'; ?>
+                  <?php echo	'<input type="text"  class="form-control" value="'.$wynik['nazwa'].'"  readonly/> <br /> <br />'; ?>
                 </td>
                 <td>Kierunek: </td>
                 <td colspan="2">
-                  <?php echo	'<input type="text" name="kierunek" class="form-control" value="'.$wynik['kierunek'].'"/> <br /> <br />';?>
+                  <?php echo	'<input type="text"  class="form-control" value="'.$wynik['kierunek'].'" readonly/> <br /> <br />';?>
                 </td>
                 <td>&nbsp;Typ zajęć: &nbsp;</td>
                 <td colspan="2">
-                  <?php echo	'<select name="typ_zajec" class="selectpicker" name="typ_zajec" style="height:50%;width:100%;margin-top:5%;margin-bottom:-10%;"><option value='.$wynik['typ_zajec'].'>'.$wynik['typ_zajec'].'</option><option value="wykład">wykład</option><option value="ćwiczenia">ćwiczenia</option><option value="labolatorium">labolatorium</option><option value="seminarium">seminarium</option></select> <br /> <br />'; ?>
+                 <?php echo	'<input type="text"  class="form-control" value="'.$wynik['typ_zajec'].'" readonly/> <br /> <br />';?>
                 </td>
               </tr>
               <tr>
                 <td>&nbsp;&nbsp;&nbsp;Sposób zaliczenia: &nbsp;&nbsp;</td>
                 <td colspan="2">
-                  <?php echo	'<select name="sposob_zaliczenia" class="selectpicker" style="height:50%;width:100%;margin-top:5%;margin-bottom:-10%;"><option value='.$wynik['sposob_zaliczenia'].'>'.$wynik['sposob_zaliczenia'].'</option><option value="egzamin">egzamin</option><option value="ocena">ocena</option><option value="zaliczenie">zaliczenie</option></select> <br /> <br />'; ?>
+                 <?php echo	'<input type="text" class="form-control" value="'.$wynik['sposob_zaliczenia'].'" readonly/> <br /> <br />';?>
                 </td>
                 <td>&nbsp;&nbsp;Liczba godzin: &nbsp;&nbsp;</td>
                 <td colspan="2">
-                  <?php echo	'<input type="text" class="form-control" name=liczba_godzin value="'.$wynik['liczba_godzin'].'"/> <br /> <br />';?>
+                  <?php echo	'<input type="text" class="form-control"  value="'.$wynik['liczba_godzin'].'" readonly/> <br /> <br />';?>
                 </td>
                 <td>Rok: </td>
                 <td colspan="2">
-                  <?php echo	'<input type="text" class="form-control" name=rok value="'.$wynik['rok'].'"/> <br /> <br />'; ?>
+                  <?php echo	'<input type="text" class="form-control"  value="'.$wynik['rok'].'" readonly/> <br /> <br />'; ?>
                 </td>
               </tr>
               <tr>
                 <td>ECTS: </td>
                 <td colspan="2">
-                <?php echo	'<input type="text" class="form-control" name=ECTS value="'.$wynik['ECTS'].'"/> <br /> <br />'; ?></td>
+                <?php echo	'<input type="text" class="form-control"  value="'.$wynik['ECTS'].'" readonly/> <br /> <br />'; ?></td>
                 <td></td>
                 <td colspan="2">
-                  <input type="button" style="width:100%;" class="btn btn-primary" onclick="location.href='user_panel.php';" value="Powrót" />
-                </td>
-                <td></td>
-                <td colspan="2">
-                  <input type="submit" style="width:100%;" class="btn btn-primary" value="Zapisz zmiany" />
+                  <input type="button" style="width:100%;" class="btn btn-primary" onclick="location.href='index.php';" value="Powrót" />
                 </td>
               </tr>
             </table>
@@ -120,6 +116,6 @@ require_once "connect.php";
 
   </body>
   <footer class="footer" style="bottom:0px;width: 100%;background-color:#071778;text-align: center;font-size: 1.4em;line-height: 1.5em;color: #c8c8c8;">
-    Aleja Tadeusza Rejtana 16C, 35-001 Rzeszów </br>
+    Aleja Tadeusza Rejtana 16C, 35-001 Rzeszów
   </footer>
 </html>

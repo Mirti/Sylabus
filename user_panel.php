@@ -18,9 +18,9 @@ require_once "connect.php";
 <html lang="pl">
   <head>
     <meta charset="utf-8">
-      <title>Super sylabus kurwo</title>
-      <meta name="description" content="The HTML5 Herald">
-        <meta name="author" content="SitePoint">
+            <title>Sylabus URz</title>
+      <meta name="description" content="Sylabus Uniwersytetu Rzeszowskiego">
+        <meta name="author" content="Artur Nykiel, Marcin Mytych">
 
             <link rel="stylesheet" href="css/userpanelcss.css">
 
@@ -49,9 +49,9 @@ require_once "connect.php";
 
 
       <div id="srodek">
-        <img id="logoimg" src="images/logo-500x500.jpg" alt="Logo Uniwersytetu" height="92" width="92">
+	<a href="index.php"><img id="logoimg" src="images/logo-500x500.jpg" alt="Logo Uniwersytetu" height="92" width="92"></a>
           <p id="dane">
-            Zalogowany user:&nbsp;
+            Zalogowany użytkownik:&nbsp;
             <?php
   echo $_SESSION['imie']." ".$_SESSION['nazwisko'];
   ?>
@@ -61,9 +61,10 @@ require_once "connect.php";
             </a>
           </p>
 
+		  
           </br>
           <p id="przedm">
-            <b>Twoje przedmioty:</b>
+            <b>Twoje przedmioty:</b> <input type="button" style="float:right" class="btn btn-primary" onclick="location.href='subject_add.php';" value="Dodaj przedmiot" />
           </p>
           <hr style="border-width: 3px;border-color:black;border-style: inset;"></hr>
           <table id="myTable" class="table table-hover" cellspacing="0" width="100%">
@@ -83,13 +84,12 @@ require_once "connect.php";
 			$sql="SELECT p.przedmiot_id, p.nazwa, p.typ_zajec, n.imie,n.nazwisko, r.rok, r.kierunek, r.tryb FROM przedmiot p, prowadzacy n, rocznik r, wydzial w, przedmiot_prowadzacy pp WHERE r.wydzial_id=w.wydzial_id AND p.rocznik_id=r.rocznik_id and p.przedmiot_id=pp.przedmiot_id AND n.prowadzacy_id=pp.prowadzacy_id AND n.prowadzacy_id=".$_SESSION['prowadzacy_id'];
 			$rezultat=@$polaczenie->query($sql);
 			while ($row=@mysqli_fetch_assoc($rezultat)):
-				echo '<tr> <td> <a href="https://youtu.be/dw3fHh6oZqA?t=51s"> '.$row['nazwa']." </a></td> <td>".$row['typ_zajec']."</td><td>".$row['rok']."</td><td>".$row['kierunek']."</td><td>".$row['tryb'].'</td><td><form action="sylabus_edit.php" method="post"><input type="hidden" name="p_id" value='.$row['przedmiot_id'].'><input type="image" src="images/edit_icon.png" alt="Submit"/></form></td></tr>';	
+				echo '<tr> <td><form id="wybor_przedmiotu" action="sylabus_view.php" method="post"><input type="hidden" name="prz_id" value='.$row['przedmiot_id'].'><button class="btn btn-link" type="Submit">'.$row['nazwa'].'</form></td> <td>'.$row['typ_zajec']."</td><td>".$row['rok']."</td><td>".$row['kierunek']."</td><td>".$row['tryb'].'</td><td><form action="sylabus_edit.php" method="post"><input type="hidden" name="p_id" value='.$row['przedmiot_id'].'><input type="image" src="images/edit_icon.png" alt="Submit"/></form></td></tr>';	
 			endwhile;
 		echo "</tbody>"; 
 		$polaczenie->close();
 ?>
-            </table>
-
+            </table>	
 
 
 
@@ -104,14 +104,12 @@ require_once "connect.php";
             "infoEmpty": "Brak wyników",
             "search":         "Szukaj:",
             "infoFiltered": "(Wyszukano z _MAX_ rekordów)",
-
             "paginate": {
             "first":      "Pierwsza",
             "last":       "Ostatnia",
             "next":       "Następna",
             "previous":   "Poprzednia"
             },
-
             }
             });
             });
