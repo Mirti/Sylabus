@@ -101,11 +101,24 @@ require_once "connect.php";
                   <input type="button" style="width:100%;" class="btn btn-primary" onclick="location.href='user_panel.php';" value="Powrót" />
                 </td>
                 <td></td>
+
                 <td colspan="2">
                   <input type="submit" style="width:100%;" class="btn btn-primary" value="Zapisz zmiany" />
                 </td>
               </tr>
             </table>
+				<table>
+						<th><b>EK</b><br />(Efekt Kształcenia)</th>
+						<th>Treść efektu kształcenia zdefiniowanego dla przedmiotu (modułu)</th>
+						<th>Odniesienie do efektów  kierunkowych <b><br />(KEK)</b></th>
+	<?php
+    $result = $polaczenie->query("SELECT * FROM przedmiot p efekt e, przedmiot_efekt pe WHERE p.przedmiot_id=pe.przedmiot_id AND e.efekt_id=pe.efekt_id AND przedmiot_id=".$id);
+	while ($row=mysqli_fetch_assoc($result)):    
+       echo '<tr><td>'.$row['kod'].'<td>'.$row['opis'].'</td></tr>';
+    endwhile;
+	?>
+						
+				</table>
           </form>
           <?php
   $polaczenie->close();

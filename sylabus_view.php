@@ -100,8 +100,22 @@ require_once "connect.php";
                 <td colspan="2">
                   <input type="button" style="width:100%;" class="btn btn-primary" onclick="location.href='index.php';" value="Powrót" />
                 </td>
+				<td colspan="2">
+					<input type="button" class="btn btn-primary" onclick="location.href='matryca.xls';" value="Matryca" />
+				</td>
               </tr>
             </table>
+			<table border=1>
+						<th><b>EK</b><br />(Efekt Kształcenia)</th>
+						<th>Treść efektu kształcenia zdefiniowanego dla przedmiotu (modułu)</th>
+						<th>Odniesienie do efektów  kierunkowych <b><br />(KEK)</b></th>
+				<?php
+    $result = $polaczenie->query("SELECT e.kod, e.opis FROM efekt e, przedmiot p, przedmiot_efekt pe WHERE p.przedmiot_id=pe.przedmiot_id AND e.efekt_id=pe.efekt_id AND p.przedmiot_id=2");
+	while ($row=mysqli_fetch_assoc($result)):    
+       echo '<tr><td>'.$row['kod'].'<td>'.$row['opis'].'</td><td></td></tr>';
+    endwhile;
+	?>
+	</table>
           </form>
           <?php
   $polaczenie->close();

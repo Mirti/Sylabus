@@ -21,7 +21,8 @@ require_once "connect.php";
 <meta name="description" content="Sylabus Uniwersytetu Rzeszowskiego">
 <meta name="author" content="Artur Nykiel, Marcin Mytych">
 <link rel="stylesheet" href="css/glowny.css">
-
+<!--<link rel="Shortcut icon" href="http://www.unipasz.pl/images/lebkury.png" /> -->
+<link rel="Shortcut icon" href="http://wiki.psrp.org.pl/images/7/77/Logo_urz_rzeszow.png"
 <!-- butstrap-->
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -150,7 +151,8 @@ require_once "connect.php";
 <footer class="footer">Uniwersytet Rzeszowski <br />Aleja Tadeusza Rejtana 16C,<br /> 35-001 Rzeszów
 <p style="font-size:0.7em">
 tel. + 48 17 872 10 00 (centrala telefoniczna)<br />
-tel/fax: + 48 17 872 12 65<br />
+tel/fax: + 48 17 872 12 <a href="https://www.youtube.com/watch?v=OSCiMbMVDLI" style="text-decoration:none; color:white">65</a><br />
 e-mail:<a href="mailto:infor@ur.edu.pl">info@ur.edu.pl</a></p></footer>
+
 </body>
 </html>

@@ -21,6 +21,7 @@ require_once "connect.php";
            <title>Sylabus URz</title>
       <meta name="description" content="Sylabus Uniwersytetu Rzeszowskiego">
         <meta name="author" content="Artur Nykiel, Marcin Mytych">
+		<link rel="Shortcut icon" href="http://wiki.psrp.org.pl/images/7/77/Logo_urz_rzeszow.png">
 
             <link rel="stylesheet" href="css/logincss.css">
 
@@ -85,7 +86,4 @@ require_once "connect.php";
       </div>
     </div>
   </body>
-  <footer class="footer" style="bottom:0px;width: 100%;background-color:#071778;text-align: center;font-size: 1.4em;line-height: 1.5em;color: #f1f1f1;">
-    Aleja Tadeusza Rejtana 16C, 35-001 Rzeszów
-  </footer>
 </html>
