@@ -37,7 +37,7 @@ require_once "connect.php";
 				
 			} else {
 				
-				$_SESSION['blad'] = 'Nieprawidłowy login lub hasło!';
+				$_SESSION['blad'] ='<p style="color:red">Nieprawidłowy login lub hasło!</p>';
 				header('Location: login.php');
 				
 			}

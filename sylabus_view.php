@@ -21,6 +21,7 @@ require_once "connect.php";
           <title>Sylabus URz</title>
       <meta name="description" content="Sylabus Uniwersytetu Rzeszowskiego">
         <meta name="author" content="Artur Nykiel, Marcin Mytych">
+		<link rel="Shortcut icon" href="http://wiki.psrp.org.pl/images/7/77/Logo_urz_rzeszow.png">
 
           <link rel="stylesheet" href="css/styles.css?v=1.0">
             <link rel="stylesheet" href="css/sylabuscss.css">
@@ -56,7 +57,6 @@ require_once "connect.php";
 
           <?php
 	$id=$_POST['prz_id'];
-	echo $id;
 	$sql= 'SELECT * FROM przedmiot p, efekt e, przedmiot_efekt pe, rocznik r WHERE p.przedmiot_id=pe.przedmiot_id AND p.rocznik_id=r.rocznik_id AND e.efekt_id=pe.efekt_id AND p.przedmiot_id='.$id;
 	$rezultat= $polaczenie->query($sql);
 	$wynik=mysqli_fetch_assoc($rezultat);
@@ -105,14 +105,27 @@ require_once "connect.php";
 				</td>
               </tr>
             </table>
+			<h3>Efekty kształcenia:</h3>
 			<table border=1>
 						<th><b>EK</b><br />(Efekt Kształcenia)</th>
 						<th>Treść efektu kształcenia zdefiniowanego dla przedmiotu (modułu)</th>
 						<th>Odniesienie do efektów  kierunkowych <b><br />(KEK)</b></th>
 				<?php
-    $result = $polaczenie->query("SELECT e.kod, e.opis FROM efekt e, przedmiot p, przedmiot_efekt pe WHERE p.przedmiot_id=pe.przedmiot_id AND e.efekt_id=pe.efekt_id AND p.przedmiot_id=2");
+    $result = $polaczenie->query("SELECT e.kod, e.opis, e.KEK FROM efekt e, przedmiot p, przedmiot_efekt pe WHERE p.przedmiot_id=pe.przedmiot_id AND e.efekt_id=pe.efekt_id AND p.przedmiot_id=".$id);
 	while ($row=mysqli_fetch_assoc($result)):    
-       echo '<tr><td>'.$row['kod'].'<td>'.$row['opis'].'</td><td></td></tr>';
+       echo '<tr><td>'.$row['kod'].'<td>'.$row['opis'].'</td><td>'.$row['KEK'].'</td></tr>';
+    endwhile;
+	?>
+	</table>
+	
+	<h3>Wymagania:</h3>
+			<table border=1>
+						<th>Nazwa</th>
+						<th>Sposób sprawdzenia</th>
+				<?php
+    $result = $polaczenie->query("SELECT w.nazwa, w.sposob_sprawdzenia, w.przedmiot_id FROM wymaganie w, przedmiot p WHERE p.przedmiot_id=w.przedmiot_id AND w.przedmiot_id=".$id);
+	while ($row=mysqli_fetch_assoc($result)):    
+       echo '<tr><td>'.$row['nazwa'].'<td>'.$row['sposob_sprawdzenia'].'</td></tr>';
     endwhile;
 	?>
 	</table>

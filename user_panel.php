@@ -21,6 +21,7 @@ require_once "connect.php";
             <title>Sylabus URz</title>
       <meta name="description" content="Sylabus Uniwersytetu Rzeszowskiego">
         <meta name="author" content="Artur Nykiel, Marcin Mytych">
+		<link rel="Shortcut icon" href="http://wiki.psrp.org.pl/images/7/77/Logo_urz_rzeszow.png">
 
             <link rel="stylesheet" href="css/userpanelcss.css">
 
@@ -64,7 +65,7 @@ require_once "connect.php";
 		  
           </br>
           <p id="przedm">
-            <b>Twoje przedmioty:</b> <input type="button" style="float:right" class="btn btn-primary" onclick="location.href='subject_add.php';" value="Dodaj przedmiot" />
+            <b>Twoje przedmioty:</b> <input type="button" style="float:right" class="btn btn-primary" onclick="location.href='sylabus_add.php';" value="Dodaj przedmiot" />
           </p>
           <hr style="border-width: 3px;border-color:black;border-style: inset;"></hr>
           <table id="myTable" class="table table-hover" cellspacing="0" width="100%">

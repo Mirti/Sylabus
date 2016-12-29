@@ -56,13 +56,11 @@ require_once "connect.php";
 
 
           <?php
-		  if(isset($_POST['p_id'])) $id=$_POST['p_id'];
-		  else $id=$_SESSION['p_id'];
-	
+	$id=@$_POST['p_id']; //USUNĄĆ!!!
 	$_SESSION['edit_id']=$id;
 	$sql= 'SELECT * FROM przedmiot p, efekt e, przedmiot_efekt pe, rocznik r WHERE p.przedmiot_id=pe.przedmiot_id AND p.rocznik_id=r.rocznik_id AND e.efekt_id=pe.efekt_id AND p.przedmiot_id='.$id;
 	$rezultat= $polaczenie->query($sql);
-	$wynik=mysqli_fetch_assoc($rezultat);
+	$wynik=@mysqli_fetch_assoc($rezultat); //USUNĄĆ
   ?>
           <form action="save_to_db.php" method="post">
 
@@ -116,37 +114,11 @@ require_once "connect.php";
 						<th>Treść efektu kształcenia zdefiniowanego dla przedmiotu (modułu)</th>
 						<th>Odniesienie do efektów  kierunkowych <b><br />(KEK)</b></th>
 						<th>Dodaj/Usuń</th>
-	<?php
-    $result = $polaczenie->query("SELECT e.efekt_id, e.kod, e.opis, e.KEK FROM efekt e, przedmiot p, przedmiot_efekt pe WHERE p.przedmiot_id=pe.przedmiot_id AND e.efekt_id=pe.efekt_id AND p.przedmiot_id=".$id);
-	while ($row=mysqli_fetch_assoc($result)): 
-		
-       echo '<form action="effect_delete.php" method="post"><input type="hidden" name="przedmiot_id" value='.$id.'><input type="hidden" name="efekt_id" value='.$row['efekt_id'].'><tr><td>'.$row['kod'].'<td>'.$row['opis'].'</td><td>'.$row['KEK'].'</td><td><input type="submit" value="Usuń"</td></tr></form>';
-    endwhile;
-	?>
-	<form action="effect_add.php" method="post">
+  
+
+	<form action="add_effect.php" method="post">
 	<tr>
-		<input type="hidden" name="id" value="<?php echo $id; ?>"><td><input style="all:inherit" type="text" name="EK" /></td><td><input style="all:inherit" type="text" name="tresc" /></td><td><input style="all:inherit" type="text" name="KEK" /></td><td><input type="submit" value="Dodaj" /><td>
-	</tr>
-	<form>
-						
-	</table>
-	
-	<br /><br /><br /><br />
-	
-	
-	<table border=1 >
-						<th>Nazwa</th>
-						<th>Sposób sprawdzenia</th>
-						<th>Dodaj/Usuń</th>
-	<?php
-    $result = $polaczenie->query("SELECT w.wymaganie_id,w.nazwa, w.sposob_sprawdzenia, w.przedmiot_id FROM wymaganie w, przedmiot p WHERE p.przedmiot_id=w.przedmiot_id AND w.przedmiot_id=".$id);
-	while ($row=mysqli_fetch_assoc($result)): 
-       echo '<form action="requirement_delete.php" method="post"><input type="hidden" name="przedmiot_id" value='.$id.'><input type="hidden" name="wymaganie_id" value='.$row['wymaganie_id'].'><tr><td>'.$row['nazwa'].'<td>'.$row['sposob_sprawdzenia'].'</td><td><input type="submit" value="Usuń"</td></tr></form>';
-    endwhile;
-	?>
-	<form action="requirement_add.php" method="post">
-	<tr>
-		<input type="hidden" name="id" value="<?php echo $id; ?>"><td><input style="all:inherit" type="text" name="nazwa" /></td><td><select name="sposob_sprawdzenia"><option value="kolokwium">kolokwium</option><option value="odpowiedz_ustna">odpowiedź ustna</option><option value="projekt">projekt</option><option value="referat">referat</option><option value="inne">inne</option></select></td><td><input type="submit" value="Dodaj" /><td>
+		<td><input style="all:inherit" type="text" name="nazwa" /></td><td><input style="all:inherit" type="text" name="nazwa" /></td><td><input style="all:inherit" type="text" name="nazwa" /></td><td><input type="submit" value="Dodaj" /><td>
 	</tr>
 	<form>
 						
@@ -161,11 +133,9 @@ require_once "connect.php";
 
 
     </div>
-	<footer class="footer">Uniwersytet Rzeszowski <br />Aleja Tadeusza Rejtana 16C,<br /> 35-001 Rzeszów
-<p style="font-size:0.7em">
-tel. + 48 17 872 10 00 (centrala telefoniczna)<br />
-tel/fax: + 48 17 872 12 <a href="https://www.youtube.com/watch?v=OSCiMbMVDLI" style="text-decoration:none; color:white">65</a><br />
-e-mail:<a href="mailto:infor@ur.edu.pl">info@ur.edu.pl</a></p></footer>
 
   </body>
+  <footer class="footer" style="bottom:0px;width: 100%;background-color:#071778;text-align: center;font-size: 1.4em;line-height: 1.5em;color: #c8c8c8;">
+    Aleja Tadeusza Rejtana 16C, 35-001 Rzeszów </br>
+  </footer>
 </html>
