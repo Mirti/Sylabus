@@ -109,18 +109,25 @@ require_once "connect.php";
               </tr>
             </table>
 			 </form>
-				<table border=1 >
-						<th><b>EK</b><br />(Efekt Kształcenia)</th>
-						<th>Treść efektu kształcenia zdefiniowanego dla przedmiotu (modułu)</th>
-						<th>Odniesienie do efektów  kierunkowych <b><br />(KEK)</b></th>
-						<th>Dodaj/Usuń</th>
-  
+        <table class="table table-hover table-bordered" >
+          <th class="info">
+            EK<br />(Efekt Kształcenia)
+          </th>
+          <th class="info">Treść efektu kształcenia zdefiniowanego dla przedmiotu (modułu)</th>
+          <th class="info">
+            Odniesienie do efektów  kierunkowych <br />(KEK)
+          </th>
+          <th class="info">&nbsp;&nbsp;Dodaj</th>
 
-	<form action="add_effect.php" method="post">
+
+          <form action="add_effect.php" method="post">
 	<tr>
-		<td><input style="all:inherit" type="text" name="nazwa" /></td><td><input style="all:inherit" type="text" name="nazwa" /></td><td><input style="all:inherit" type="text" name="nazwa" /></td><td><input type="submit" value="Dodaj" /><td>
+		<td><input style="height:50%;width:100%;margin-top:0.5%;margin-bottom:-10%;" class="form-control" type="text" name="nazwa" /></td>
+    <td><input style="height:50%;width:100%;margin-top:0.5%;margin-bottom:-10%;" class="form-control" type="text" name="nazwa" /></td>
+    <td><input style="height:50%;width:100%;margin-top:0.5%;margin-bottom:-10%;" class="form-control" type="text" name="nazwa" /></td>
+    <td><input type="submit" class="btn btn-primary" value="Dodaj" /></td>
 	</tr>
-	<form>
+	</form>
 						
 	</table>
           <?php
@@ -135,7 +142,12 @@ require_once "connect.php";
     </div>
 
   </body>
-  <footer class="footer" style="bottom:0px;width: 100%;background-color:#071778;text-align: center;font-size: 1.4em;line-height: 1.5em;color: #c8c8c8;">
-    Aleja Tadeusza Rejtana 16C, 35-001 Rzeszów </br>
+  <footer class="footer">
+    Uniwersytet Rzeszowski <br />Aleja Tadeusza Rejtana 16C,<br /> 35-001 Rzeszów
+    <p style="font-size:0.7em">
+      tel. + 48 17 872 10 00 (centrala telefoniczna)<br />
+      tel/fax: + 48 17 872 12 <a href="https://www.youtube.com/watch?v=OSCiMbMVDLI" style="text-decoration:none; color:white">65</a><br />
+      e-mail:<a href="mailto:infor@ur.edu.pl">info@ur.edu.pl</a>
+    </p>
   </footer>
 </html>

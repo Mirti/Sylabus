@@ -10,19 +10,12 @@ require_once "connect.php";
 	}
 	$polaczenie -> query("SET NAMES 'utf8'");
 	
-	$EK=$_POST['EK'];
-	$tresc=$_POST['tresc'];
-	$KEK=$_POST['KEK'];
+	$nazwa=$_POST['nazwa'];
 	$przedmiot_id=$_POST['id'];
 	
-	$sql='INSERT INTO efekt (kod,opis,KEK) VALUES ("'.$EK.'","'.$tresc.'","'.$KEK.'")';
+	$sql='INSERT INTO tresc (opis,przedmiot_id) VALUES ("'.$nazwa.'",'.$przedmiot_id.')';
 	$polaczenie->query($sql);
-	$sql='SELECT efekt_id from efekt ORDER BY efekt_id desc limit 1';
 
-	$result=	$polaczenie->query($sql);
-	$row=mysqli_fetch_assoc($result);
-	$sql='INSERT INTO przedmiot_efekt VALUES ('.$przedmiot_id.','.$row['efekt_id'].')';
-	$polaczenie->query($sql);
 	$_SESSION['p_id']=$przedmiot_id;
 	
 		$polaczenie->close();

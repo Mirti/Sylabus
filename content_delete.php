@@ -10,23 +10,17 @@ require_once "connect.php";
 	}
 	$polaczenie -> query("SET NAMES 'utf8'");
 	
-	$EK=$_POST['EK'];
-	$tresc=$_POST['tresc'];
-	$KEK=$_POST['KEK'];
-	$przedmiot_id=$_POST['id'];
-	
-	$sql='INSERT INTO efekt (kod,opis,KEK) VALUES ("'.$EK.'","'.$tresc.'","'.$KEK.'")';
-	$polaczenie->query($sql);
-	$sql='SELECT efekt_id from efekt ORDER BY efekt_id desc limit 1';
-
-	$result=	$polaczenie->query($sql);
-	$row=mysqli_fetch_assoc($result);
-	$sql='INSERT INTO przedmiot_efekt VALUES ('.$przedmiot_id.','.$row['efekt_id'].')';
+	$przedmiot_id=$_POST['przedmiot_id'];
+	$tresc_id=$_POST['tresc_id'];
+	$sql='DELETE FROM tresc WHERE przedmiot_id='.$przedmiot_id.' AND tresc_id='.$tresc_id;
 	$polaczenie->query($sql);
 	$_SESSION['p_id']=$przedmiot_id;
 	
 		$polaczenie->close();
 	header ('Location: sylabus_edit.php');
+	
+	
+
 	
 ?>
 

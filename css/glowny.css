@@ -87,7 +87,6 @@
 
 #lista{
     width:100%;
-
 }
 option{
     font-size:18px;
@@ -129,7 +128,7 @@ body{
         margin:15px 0;
         padding:15px;
       }
-
+  
 .footer {
 width: 100%;
 position:relative;
@@ -142,6 +141,7 @@ line-height: 1.5em;
 color: #f1f1f1;
 
 } 
+
 
 
 
