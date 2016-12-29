@@ -151,27 +151,6 @@ require_once "connect.php";
 	<form>
 						
 	</table>
-	
-	<br /> <br /> <br />
-	
-	<table border=1 >
-						<th>Treść programowa</th>
-						<th>Dodaj/Usuń</th>
-
-	<?php
-    $result = $polaczenie->query("SELECT t.tresc_id,t.opis FROM tresc t, przedmiot p WHERE p.przedmiot_id=t.przedmiot_id AND t.przedmiot_id=".$id);
-	while ($row=mysqli_fetch_assoc($result)): 
-       echo '<form action="content_delete.php" method="post"><input type="hidden" name="przedmiot_id" value='.$id.'><input type="hidden" name="tresc_id" value='.$row['tresc_id'].'><tr><td>'.$row['opis'].'</td><td><input type="submit" value="Usuń"</td></tr></form>';
-    endwhile;
-	?>
-	<form action="requirement_add.php" method="post">
-	<tr>
-		<input type="hidden" name="id" value="<?php echo $id; ?>"><td><input style="all:inherit" type="text" name="nazwa" /></td><td><select name="sposob_sprawdzenia"><option value="kolokwium">kolokwium</option><option value="odpowiedz_ustna">odpowiedź ustna</option><option value="projekt">projekt</option><option value="referat">referat</option><option value="inne">inne</option></select></td><td><input type="submit" value="Dodaj" /><td>
-	</tr>
-	<form>
-						
-	</table>
-	
           <?php
   $polaczenie->close();
   ?>

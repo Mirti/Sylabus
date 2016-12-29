@@ -33,7 +33,10 @@ require_once "connect.php";
 				
 				unset($_SESSION['blad']);
 				$rezultat->free_result();
+				if($wiersz['admin']!=1)
 				header('Location: user_panel.php');
+				else
+				header('Location:admin_panel.php');
 				
 			} else {
 				
