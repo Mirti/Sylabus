@@ -104,32 +104,66 @@ require_once "connect.php";
 					<input type="button" class="btn btn-primary" onclick="location.href='matryca.xls';" value="Matryca" />
 				</td>
               </tr>
-            </table>
-			<h3>Efekty kształcenia:</h3>
-			<table border=1>
-						<th><b>EK</b><br />(Efekt Kształcenia)</th>
-						<th>Treść efektu kształcenia zdefiniowanego dla przedmiotu (modułu)</th>
-						<th>Odniesienie do efektów  kierunkowych <b><br />(KEK)</b></th>
-				<?php
-    $result = $polaczenie->query("SELECT e.kod, e.opis, e.KEK FROM efekt e, przedmiot p, przedmiot_efekt pe WHERE p.przedmiot_id=pe.przedmiot_id AND e.efekt_id=pe.efekt_id AND p.przedmiot_id=".$id);
-	while ($row=mysqli_fetch_assoc($result)):    
-       echo '<tr><td>'.$row['kod'].'<td>'.$row['opis'].'</td><td>'.$row['KEK'].'</td></tr>';
+
+			          <!-- pierwsza tabela-->
+
+
+        <table class="table table-hover table-bordered" >
+          <th class="info">
+            EK<br />(Efekt Kształcenia)
+          </th>
+          <th class="info">Treść efektu kształcenia zdefiniowanego dla przedmiotu (modułu)</th>
+          <th class="info">
+            Odniesienie do efektów  kierunkowych <br />(KEK)
+          </th>
+          <?php
+    $result = $polaczenie->query("SELECT e.efekt_id, e.kod, e.opis, e.KEK FROM efekt e, przedmiot p, przedmiot_efekt pe WHERE p.przedmiot_id=pe.przedmiot_id AND e.efekt_id=pe.efekt_id AND p.przedmiot_id=".$id);
+	while ($row=mysqli_fetch_assoc($result)): 
+		
+       echo '<form action="effect_delete.php" method="post"><input type="hidden" name="przedmiot_id" value='.$id.'><input type="hidden" name="efekt_id" value='.$row['efekt_id'].'><tr><td>'.$row['kod'].'<td>'.$row['opis'].'</td><td>'.$row['KEK'].'</td></tr></form>';
     endwhile;
 	?>
-	</table>
-	
-	<h3>Wymagania:</h3>
-			<table border=1>
-						<th>Nazwa</th>
-						<th>Sposób sprawdzenia</th>
-				<?php
-    $result = $polaczenie->query("SELECT w.nazwa, w.sposob_sprawdzenia, w.przedmiot_id FROM wymaganie w, przedmiot p WHERE p.przedmiot_id=w.przedmiot_id AND w.przedmiot_id=".$id);
-	while ($row=mysqli_fetch_assoc($result)):    
-       echo '<tr><td>'.$row['nazwa'].'<td>'.$row['sposob_sprawdzenia'].'</td></tr>';
+        
+
+        </table>
+
+        <!-- druga tabela-->
+        <br />
+        <br />
+        <br />
+        <br />
+
+
+
+        <table class="table table-hover table-bordered" >
+          <th class="info" style="font-size:120%;">Nazwa</th>
+          <th class="info" style="font-size:120%;">Sposób sprawdzenia</th>
+          <?php
+    $result = $polaczenie->query("SELECT w.wymaganie_id,w.nazwa, w.sposob_sprawdzenia, w.przedmiot_id FROM wymaganie w, przedmiot p WHERE p.przedmiot_id=w.przedmiot_id AND w.przedmiot_id=".$id);
+	while ($row=mysqli_fetch_assoc($result)): 
+       echo '<form action="requirement_delete.php" method="post"><input type="hidden" name="przedmiot_id" value='.$id.'><input type="hidden" name="wymaganie_id" value='.$row['wymaganie_id'].'><tr><td>'.$row['nazwa'].'<td>'.$row['sposob_sprawdzenia'].'</td></tr></form>';
     endwhile;
 	?>
-	</table>
-          </form>
+ 
+
+        </table>
+
+        <br />
+        <br />
+        <br />
+
+        <!-- trzecia tabela-->
+
+        <table class="table table-hover table-bordered" >
+          <th class="info" style="font-size:120%;">Treść programowa</th>
+          <?php
+    $result = $polaczenie->query("SELECT t.tresc_id,t.opis FROM tresc t, przedmiot p WHERE p.przedmiot_id=t.przedmiot_id AND t.przedmiot_id=".$id);
+	while ($row=mysqli_fetch_assoc($result)): 
+       echo '<form action="content_delete.php" method="post"><input type="hidden" name="przedmiot_id" value='.$id.'><input type="hidden" name="tresc_id" value='.$row['tresc_id'].'><tr><td>'.$row['opis'].'</td></tr></form>';
+    endwhile;
+	?>
+
+        </table>
           <?php
   $polaczenie->close();
   ?>

@@ -55,59 +55,55 @@ require_once "connect.php";
 
 
 
-          <?php
-  ?>
-          <form action="sylabus_add_script.php" method="post">
+
+          <form action="user_add_script.php" method="post">
 
             <table>
               <tr>
-                <td>Nazwa przedmiotu:</td>
+                <td>Imię:</td>
                 <td colspan="2">
-                  <?php echo	'<input type="text" name="nazwa" class="form-control"/> <br /> <br />'; ?>
+                  <?php echo	'<input type="text" name="imie" class="form-control" /> <br /> <br />'; ?>
                 </td>
                
-                <td>&nbsp;Typ zajęć: &nbsp;</td>
+                <td>&nbsp;Nazwisko: &nbsp;</td>
                 <td colspan="2">
-                  <?php echo	'<select name="typ_zajec" class="selectpicker" name="typ_zajec" style="height:50%;width:100%;margin-top:5%;margin-bottom:-10%;"><option value="wykład">wykład</option><option value="ćwiczenia">ćwiczenia</option><option value="labolatorium">labolatorium</option><option value="seminarium">seminarium</option></select> <br /> <br />'; ?>
+				<?php echo	'<input type="text" name="nazwisko" class="form-control" /> <br /> <br />'; ?>
                 </td>
-				 <td>Rocznik: </td>
+				 <td>Stopień: </td>
                 <td colspan="2">
-				<select name="rocznik_id"
-                   <?php
-				$result = $polaczenie->query("SELECT * FROM rocznik");
-				while ($row=mysqli_fetch_assoc($result)):    
-				echo "<option value=".$row['rocznik_id'].">".$row['rok'].' '.$row['kierunek'].' '.$row['tryb']."</option>";
-				endwhile;
-?>
-                </td>
+				<?php echo	'<input type="text" name="stopien" class="form-control" /> <br /> <br />'; ?>
+				</td>
               </tr>
               <tr>
-                <td>&nbsp;&nbsp;&nbsp;Sposób zaliczenia: &nbsp;&nbsp;</td>
+                <td>&nbsp;&nbsp;&nbsp;E-mail: &nbsp;&nbsp;</td>
                 <td colspan="2">
-                  <?php echo	'<select name="sposob_zaliczenia" class="selectpicker" style="height:50%;width:100%;margin-top:5%;margin-bottom:-10%;"><option value="egzamin">egzamin</option><option value="ocena">ocena</option><option value="zaliczenie">zaliczenie</option></select> <br /> <br />'; ?>
+                 <?php echo '<input type="text" name="email" class="form-control" /> <br /> <br />'; ?>
                 </td>
-                <td>&nbsp;&nbsp;Liczba godzin: &nbsp;&nbsp;</td>
+                <td>&nbsp;&nbsp;Telefon: &nbsp;&nbsp;</td>
                 <td colspan="2">
-                  <?php echo	'<input type="text" class="form-control" name=liczba_godzin /> <br /> <br />';?>
+                  <?php echo	'<input type="text" class="form-control" name=telefon /> <br /> <br />';?>
                 </td>
-				 <td>Semestr: </td>
+				 <td>WWW: </td>
                 <td colspan="2">
-                  <?php echo	'<input type="text" class="form-control" name=semestr /> <br /> <br />'; ?>
+                  <?php echo	'<input type="text" class="form-control" name=www /> <br /> <br />'; ?>
                 </td>
            
               </tr>
               <tr>
-                <td>ECTS: </td>
+                <td>Login: </td>
                 <td colspan="2">
-                <?php echo	'<input type="text" class="form-control" name=ECTS /> <br /> <br />'; ?></td>
+                <?php echo	'<input type="text" class="form-control" name=login /> <br /> <br />'; ?></td>
+				<td>Hasło: </td>
+                <td colspan="2">
+                <?php echo	'<input type="text" class="form-control" name=haslo /> <br /> <br />'; ?></td>
  
                 <td colspan="2">
-                  <input type="button" style="width:100%;" class="btn btn-primary" onclick="location.href='user_panel.php';" value="Powrót" />
+                  <input type="button" style="width:100%;" class="btn btn-primary" onclick="location.href='admin_panel.php';" value="Powrót" />
                 </td>
                 <td></td>
 
                 <td colspan="2">
-                  <input type="submit" style="width:100%;" class="btn btn-primary" value="Dodaj przedmiot" />
+                  <input type="submit" style="width:100%;" class="btn btn-primary" value="Dodaj" />
                 </td>
               </tr>
             </table>

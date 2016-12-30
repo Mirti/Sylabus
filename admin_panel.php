@@ -55,108 +55,89 @@ require_once "connect.php";
 
 
 
-          <?php
-		  if(isset($_POST['p_id'])) $id=$_POST['p_id'];
-		  else $id=$_SESSION['p_id'];
-	
-	$_SESSION['edit_id']=$id;
-	$sql= 'SELECT * FROM przedmiot p, efekt e, przedmiot_efekt pe, rocznik r WHERE p.przedmiot_id=pe.przedmiot_id AND p.rocznik_id=r.rocznik_id AND e.efekt_id=pe.efekt_id AND p.przedmiot_id='.$id;
-	$rezultat= $polaczenie->query($sql);
-	$wynik=mysqli_fetch_assoc($rezultat);
-  ?>
-          <form action="save_to_db.php" method="post">
-
-            <table>
-              <tr>
-                <td>Nazwa przedmiotu:</td>
-                <td colspan="2">
-                  <?php echo	'<input type="text" name="nazwa" class="form-control" value="'.$wynik['nazwa'].'"/> <br /> <br />'; ?>
-                </td>
-                <td>Kierunek: </td>
-                <td colspan="2">
-                  <?php echo	'<input type="text" name="kierunek" class="form-control" value="'.$wynik['kierunek'].'"/> <br /> <br />';?>
-                </td>
-                <td>&nbsp;Typ zajęć: &nbsp;</td>
-                <td colspan="2">
-                  <?php echo	'<select name="typ_zajec" class="selectpicker" name="typ_zajec" style="height:50%;width:100%;margin-top:5%;margin-bottom:-10%;"><option value='.$wynik['typ_zajec'].'>'.$wynik['typ_zajec'].'</option><option value="wykład">wykład</option><option value="ćwiczenia">ćwiczenia</option><option value="labolatorium">labolatorium</option><option value="seminarium">seminarium</option></select> <br /> <br />'; ?>
-                </td>
-              </tr>
-              <tr>
-                <td>&nbsp;&nbsp;&nbsp;Sposób zaliczenia: &nbsp;&nbsp;</td>
-                <td colspan="2">
-                  <?php echo	'<select name="sposob_zaliczenia" class="selectpicker" style="height:50%;width:100%;margin-top:5%;margin-bottom:-10%;"><option value='.$wynik['sposob_zaliczenia'].'>'.$wynik['sposob_zaliczenia'].'</option><option value="egzamin">egzamin</option><option value="ocena">ocena</option><option value="zaliczenie">zaliczenie</option></select> <br /> <br />'; ?>
-                </td>
-                <td>&nbsp;&nbsp;Liczba godzin: &nbsp;&nbsp;</td>
-                <td colspan="2">
-                  <?php echo	'<input type="text" class="form-control" name=liczba_godzin value="'.$wynik['liczba_godzin'].'"/> <br /> <br />';?>
-                </td>
-                <td>Rok: </td>
-                <td colspan="2">
-                  <?php echo	'<input type="text" class="form-control" name=rok value="'.$wynik['rok'].'"/> <br /> <br />'; ?>
-                </td>
-              </tr>
-              <tr>
-                <td>ECTS: </td>
-                <td colspan="2">
-                <?php echo	'<input type="text" class="form-control" name=ECTS value="'.$wynik['ECTS'].'"/> <br /> <br />'; ?></td>
-                <td></td>
-                <td colspan="2">
-                  <input type="button" style="width:100%;" class="btn btn-primary" onclick="location.href='user_panel.php';" value="Powrót" />
-                </td>
-                <td></td>
-
-                <td colspan="2">
-                  <input type="submit" style="width:100%;" class="btn btn-primary" value="Zapisz zmiany" />
-                </td>
-              </tr>
-            </table>
-			 </form>
-				<table border=1 >
-						<th><b>EK</b><br />(Efekt Kształcenia)</th>
-						<th>Treść efektu kształcenia zdefiniowanego dla przedmiotu (modułu)</th>
-						<th>Odniesienie do efektów  kierunkowych <b><br />(KEK)</b></th>
-						<th>Dodaj/Usuń</th>
-	<?php
-    $result = $polaczenie->query("SELECT e.efekt_id, e.kod, e.opis, e.KEK FROM efekt e, przedmiot p, przedmiot_efekt pe WHERE p.przedmiot_id=pe.przedmiot_id AND e.efekt_id=pe.efekt_id AND p.przedmiot_id=".$id);
+         <table border=1>
+			<th>Imię</th>
+			<th>Nazwisko</th>
+			<th>Stopień</th>
+			<th>Login</th>
+			<th>Edytuj/Dodaj</th>
+			
+			 <?php
+    $result = $polaczenie->query("SELECT * FROM prowadzacy");
 	while ($row=mysqli_fetch_assoc($result)): 
-		
-       echo '<form action="effect_delete.php" method="post"><input type="hidden" name="przedmiot_id" value='.$id.'><input type="hidden" name="efekt_id" value='.$row['efekt_id'].'><tr><td>'.$row['kod'].'<td>'.$row['opis'].'</td><td>'.$row['KEK'].'</td><td><input type="submit" value="Usuń"</td></tr></form>';
+       echo '<form action="user_edit.php" method="post"><input type="hidden" name="prowadzacy_id" value='.$row['prowadzacy_id'].'><tr><td>'.$row['imie'].'</td><td>'.$row['nazwisko'].'</td><td>'.$row['stopien'].'</td><td>'.$row['login'].'</td><td><input type="submit" value="Edytuj"</td></tr></form>';
     endwhile;
-	?>
-	<form action="effect_add.php" method="post">
-	<tr>
-		<input type="hidden" name="id" value="<?php echo $id; ?>"><td><input style="all:inherit" type="text" name="EK" /></td><td><input style="all:inherit" type="text" name="tresc" /></td><td><input style="all:inherit" type="text" name="KEK" /></td><td><input type="submit" value="Dodaj" /><td>
-	</tr>
-	<form>
-						
-	</table>
-	
-	<br /><br /><br /><br />
-	
-	
-	<table border=1 >
-						<th>Nazwa</th>
-						<th>Sposób sprawdzenia</th>
-						<th>Dodaj/Usuń</th>
-	<?php
-    $result = $polaczenie->query("SELECT w.wymaganie_id,w.nazwa, w.sposob_sprawdzenia, w.przedmiot_id FROM wymaganie w, przedmiot p WHERE p.przedmiot_id=w.przedmiot_id AND w.przedmiot_id=".$id);
+	?>		
+		 </table>
+		 <form action="user_add.php">
+			<input type="submit" class="btn btn-primary" value="Dodaj" />
+		 </form>
+		 
+		 
+		 <!-- tabela 2 -->
+		 
+		          <table border=1>
+			<th>Kierunek</th>
+			<th>Rok</th>
+			<th>Tryb</th>
+			<th>Wydział</th>
+			<th>Opiekun</th>
+			<th>Edytuj/Dodaj</th>
+			
+			 <?php
+    $result = $polaczenie->query("SELECT * FROM rocznik r,wydzial w WHERE r.wydzial_id=w.wydzial_id");
 	while ($row=mysqli_fetch_assoc($result)): 
-       echo '<form action="requirement_delete.php" method="post"><input type="hidden" name="przedmiot_id" value='.$id.'><input type="hidden" name="wymaganie_id" value='.$row['wymaganie_id'].'><tr><td>'.$row['nazwa'].'<td>'.$row['sposob_sprawdzenia'].'</td><td><input type="submit" value="Usuń"</td></tr></form>';
+       echo '<form action="year_edit.php" method="post"><input type="hidden" name="rocznik_id" value='.$row['rocznik_id'].'><tr><td>'.$row['kierunek'].'</td><td>'.$row['rok'].'</td><td>'.$row['tryb'].'</td><td>'.$row['nazwa'].'</td><td>'.$row['opiekun'].'</td><td><input type="submit" value="Edytuj"</td></tr></form>';
     endwhile;
-	?>
-	<form action="requirement_add.php" method="post">
-	<tr>
-		<input type="hidden" name="id" value="<?php echo $id; ?>"><td><input style="all:inherit" type="text" name="nazwa" /></td><td><select name="sposob_sprawdzenia"><option value="kolokwium">kolokwium</option><option value="odpowiedz_ustna">odpowiedź ustna</option><option value="projekt">projekt</option><option value="referat">referat</option><option value="inne">inne</option></select></td><td><input type="submit" value="Dodaj" /><td>
-	</tr>
-	<form>
-						
-	</table>
-          <?php
-  $polaczenie->close();
-  ?>
-
-
-        </div>
+	?>		
+	<form action="year_add.php" method="post">
+            <tr>
+              <td>
+                <input type="text" name="kierunek" />
+              </td>
+			   <td>
+                <select name="rok">
+					<option value="I">I</option>
+					<option value="II">II</option>
+					<option value="III">III</option>
+					<option value="IV">IV</option>
+					<option value="V">V</option>
+				</select>
+              </td>
+			  <td>
+                <select name="tryb">
+					<option value="stacjonarne">stacjonarne</option>
+					<option value="niestacjonarne">niestacjonarne</option>
+				</select>
+              </td>
+			  <td>
+                <select name="wydzial">
+					 <?php
+							$result = $polaczenie->query("SELECT * FROM wydzial");
+							while ($row=mysqli_fetch_assoc($result)):    
+							echo "<option value=".$row['nazwa'].">".$row['nazwa']."</option>";
+							endwhile;
+					?>
+				</select>
+              </td>
+			  <td>
+                <input type="text" name="opiekun" />
+              </td>
+               
+              <td>
+                <input type="submit" value="Dodaj" />
+              </td>
+            </tr>
+          </form>
+		 </table>
+		 
+		 <form action="user_add">
+			<input type="submit" class="btn btn-primary" value="Dodaj" />
+		 </form>
+		 		 
+		 
+		 
+		 
       
 
 
