@@ -52,6 +52,17 @@ require_once "connect.php";
 
       <div id="srodek">
            <a href="index.php"><img src="images/logo-500x500.jpg" alt="Logo Uniwersytetu" height="92" width="92"></a>
+		   
+		     <p id="dane">
+            Zalogowany użytkownik:&nbsp;
+            <?php
+				echo $_SESSION['imie']." ".$_SESSION['nazwisko'];
+			?>
+            <br /> <br />
+            <a href="logout_script.php">
+              <input id="logoffbutton"  class="btn btn-primary" value="Wyloguj" />
+            </a>
+          </p>
 
 
 
@@ -115,7 +126,7 @@ require_once "connect.php";
 					 <?php
 							$result = $polaczenie->query("SELECT * FROM wydzial");
 							while ($row=mysqli_fetch_assoc($result)):    
-							echo "<option value=".$row['nazwa'].">".$row['nazwa']."</option>";
+							echo "<option value=".$row['wydzial_id'].">".$row['nazwa']."</option>";
 							endwhile;
 					?>
 				</select>
@@ -131,10 +142,6 @@ require_once "connect.php";
           </form>
 		 </table>
 		 
-		 <form action="user_add">
-			<input type="submit" class="btn btn-primary" value="Dodaj" />
-		 </form>
-		 		 
 		 
 		 
 		 
