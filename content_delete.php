@@ -9,6 +9,7 @@ require_once "connect.php";
 		exit();
 	}
 	$polaczenie -> query("SET NAMES 'utf8'");
+		if(!isset($_SESSION['zalogowany'])) header('Location:index.php');
 	
 	$przedmiot_id=$_POST['przedmiot_id'];
 	$tresc_id=$_POST['tresc_id'];

@@ -9,6 +9,7 @@ require_once "connect.php";
 		exit();
 	}
 	$polaczenie -> query("SET NAMES 'utf8'");
+		if(!isset($_SESSION['zalogowany'])) header('Location:index.php');
 	
 ?>
 
@@ -24,7 +25,8 @@ require_once "connect.php";
 		<link rel="Shortcut icon" href="http://wiki.psrp.org.pl/images/7/77/Logo_urz_rzeszow.png">
 
           <link rel="stylesheet" href="css/styles.css?v=1.0">
-            <link rel="stylesheet" href="css/sylabuscss.css">
+            <link rel="stylesheet" href="css/sylabuscss_add.css">
+              
 
               <!-- butstrap-->
               <!-- Latest compiled and minified CSS -->
@@ -68,11 +70,11 @@ require_once "connect.php";
                
                 <td>&nbsp;Typ zajęć: &nbsp;</td>
                 <td colspan="2">
-                  <?php echo	'<select name="typ_zajec" class="selectpicker" name="typ_zajec" style="height:50%;width:100%;margin-top:5%;margin-bottom:-10%;"><option value="wykład">wykład</option><option value="ćwiczenia">ćwiczenia</option><option value="labolatorium">labolatorium</option><option value="seminarium">seminarium</option></select> <br /> <br />'; ?>
+                  <?php echo	'<select name="typ_zajec" class="form-control" name="typ_zajec" style="height:50%;width:100%;margin-top:5%;margin-bottom:-10%;"><option value="wykład">wykład</option><option value="ćwiczenia">ćwiczenia</option><option value="labolatorium">labolatorium</option><option value="seminarium">seminarium</option></select> <br /> <br />'; ?>
                 </td>
-				 <td>Rocznik: </td>
+				 <td>&nbsp;&nbsp;Rocznik: </td>
                 <td colspan="2">
-				<select name="rocznik_id"
+				<select name="rocznik_id" class="form-control"
                    <?php
 				$result = $polaczenie->query("SELECT * FROM rocznik");
 				while ($row=mysqli_fetch_assoc($result)):    
@@ -82,15 +84,15 @@ require_once "connect.php";
                 </td>
               </tr>
               <tr>
-                <td>&nbsp;&nbsp;&nbsp;Sposób zaliczenia: &nbsp;&nbsp;</td>
+                <td>Sposób zaliczenia: &nbsp;&nbsp;</td>
                 <td colspan="2">
-                  <?php echo	'<select name="sposob_zaliczenia" class="selectpicker" style="height:50%;width:100%;margin-top:5%;margin-bottom:-10%;"><option value="egzamin">egzamin</option><option value="ocena">ocena</option><option value="zaliczenie">zaliczenie</option></select> <br /> <br />'; ?>
+                  <?php echo	'<select name="sposob_zaliczenia" class="form-control" style="height:50%;width:100%;margin-top:5%;margin-bottom:-10%;"><option value="egzamin">egzamin</option><option value="ocena">ocena</option><option value="zaliczenie">zaliczenie</option></select> <br /> <br />'; ?>
                 </td>
                 <td>&nbsp;&nbsp;Liczba godzin: &nbsp;&nbsp;</td>
                 <td colspan="2">
                   <?php echo	'<input type="text" class="form-control" name=liczba_godzin /> <br /> <br />';?>
                 </td>
-				 <td>Semestr: </td>
+				 <td>&nbsp;&nbsp;Semestr: </td>
                 <td colspan="2">
                   <?php echo	'<input type="text" class="form-control" name=semestr /> <br /> <br />'; ?>
                 </td>
@@ -100,14 +102,14 @@ require_once "connect.php";
                 <td>ECTS: </td>
                 <td colspan="2">
                 <?php echo	'<input type="text" class="form-control" name=ECTS /> <br /> <br />'; ?></td>
- 
-                <td colspan="2">
-                  <input type="button" style="width:100%;" class="btn btn-primary" onclick="location.href='user_panel.php';" value="Powrót" />
-                </td>
+
                 <td></td>
+                <td colspan="2">
+                  <input type="button" style="width:100%;float:right;" class="btn btn-primary" onclick="location.href='user_panel.php';" value="Powrót" />
+                </td>
 
                 <td colspan="2">
-                  <input type="submit" style="width:100%;" class="btn btn-primary" value="Dodaj przedmiot" />
+                  <input type="submit" style="width:65%;float:right;" class="btn btn-primary" value="Dodaj przedmiot" />
                 </td>
               </tr>
             </table>

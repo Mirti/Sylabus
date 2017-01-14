@@ -10,18 +10,21 @@ require_once "connect.php";
 	}
 	$polaczenie -> query("SET NAMES 'utf8'");
 		if(!isset($_SESSION['zalogowany'])) header('Location:index.php');
+		
+	$wymagania=$_POST['wymagania'];
+	$przedmiot_id=$_POST['id'];
 	
-	$przedmiot_id=$_POST['przedmiot_id'];
-	$efekt_id=$_POST['efekt_id'];
-	$sql='DELETE FROM przedmiot_efekt WHERE przedmiot_id='.$przedmiot_id.' AND efekt_id='.$efekt_id;
+	$sql='SELECT * from wymagania_wstepne WHERE przedmiot_id='.$przedmiot_id;
+	$result=$polaczenie->query($sql);
+	if (is_null(mysqli_fetch_assoc($result))) $sql='INSERT INTO wymagania_wstepne(przedmiot_id,tresc) VALUES ('.$przedmiot_id.',"'.$wymagania.'")';
+	else  $sql='UPDATE wymagania_wstepne SET tresc="'.$wymagania.'" WHERE przedmiot_id='.$przedmiot_id;
+	echo $sql;
 	$polaczenie->query($sql);
+
 	$_SESSION['p_id']=$przedmiot_id;
 	
-		$polaczenie->close();
+	$polaczenie->close();
 	header ('Location: sylabus_edit.php');
-	
-	
-
 	
 ?>
 

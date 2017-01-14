@@ -9,6 +9,7 @@ require_once "connect.php";
 		exit();
 	}
 	$polaczenie -> query("SET NAMES 'utf8'");
+		if(!isset($_SESSION['zalogowany'])) header('Location:index.php');
 	
 ?>
 
@@ -24,7 +25,7 @@ require_once "connect.php";
 		<link rel="Shortcut icon" href="http://wiki.psrp.org.pl/images/7/77/Logo_urz_rzeszow.png">
 
           <link rel="stylesheet" href="css/styles.css?v=1.0">
-            <link rel="stylesheet" href="css/sylabuscss.css">
+            <link rel="stylesheet" href="css/sylabuscss_add.css">
 
               <!-- butstrap-->
               <!-- Latest compiled and minified CSS -->
@@ -75,21 +76,21 @@ require_once "connect.php";
                 <td colspan="2">
 				<?php echo	'<input type="text" name="nazwisko" class="form-control" value='.$row['nazwisko'].' /> <br /> <br />'; ?>
                 </td>
-				 <td>Stopień: </td>
+				 <td>&nbsp;Stopień: </td>
                 <td colspan="2">
 				<?php echo	'<input type="text" name="stopien" class="form-control" value='.$row['stopien'].' /> <br /> <br />'; ?>
 				</td>
               </tr>
               <tr>
-                <td>&nbsp;&nbsp;&nbsp;E-mail: &nbsp;&nbsp;</td>
+                <td>E-mail: &nbsp;&nbsp;</td>
                 <td colspan="2">
                  <?php echo '<input type="text" name="email" class="form-control" value='.$row['email'].' /> <br /> <br />'; ?>
                 </td>
-                <td>&nbsp;&nbsp;Telefon: &nbsp;&nbsp;</td>
+                <td>&nbsp;Telefon: &nbsp;&nbsp;</td>
                 <td colspan="2">
                   <?php echo	'<input type="text" class="form-control" name=telefon value='.$row['telefon'].' /> <br /> <br />';?>
                 </td>
-				 <td>WWW: </td>
+				 <td>&nbsp;WWW: &nbsp;&nbsp;&nbsp;&nbsp;</td>
                 <td colspan="2">
                   <?php echo	'<input type="text" class="form-control" name=www value='.$row['www'].' /> <br /> <br />'; ?>
                 </td>
@@ -99,24 +100,26 @@ require_once "connect.php";
                 <td>Login: </td>
                 <td colspan="2">
                 <?php echo	'<input type="text" class="form-control" name=login value='.$row['login'].' /> <br /> <br />'; ?></td>
-				<td>Hasło: </td>
+				<td>&nbsp;Hasło: </td>
                 <td colspan="2">
                 <?php echo	'<input type="text" class="form-control" name=haslo value='.$row['password'].' /> <br /> <br />'; ?></td>
  
                 <td colspan="2">
-                  <input type="button" style="width:100%;" class="btn btn-primary" onclick="location.href='admin_panel.php';" value="Powrót" />
+                  
                 </td>
-                <td></td>
+                <td>
+                  <input type="button" style="width:80%;float:right;" class="btn btn-primary" onclick="location.href='admin_panel.php';" value="Powrót" />
+                </td>
 
                 <td colspan="2">
-                  <input type="submit" style="width:100%;" class="btn btn-primary" value="Zapisz zmiany" />
+                  <input type="submit" style="width:95%;float:right;" class="btn btn-primary" value="Zapisz zmiany" />
                 </td>
 				</form>
 				
 				<td colspan="2">
                   <form action="user_delete.php" method="post">
 				  <input type="hidden" value=<?php  echo $id ?> name="prowadzacy_id" />
-				  <input type="submit" style="width:100%;" class="btn btn-primary" value="Usuń użytkownika" /> 
+				  <input type="submit" style="width:95%;float:right;" class="btn btn-primary" value="Usuń użytkownika" /> 
 				  </form>
                 </td>
               </tr>

@@ -10,6 +10,7 @@ require_once "connect.php";
 	}
 	$polaczenie -> query("SET NAMES 'utf8'");
 	
+	
 	$login=$_POST['login'];
 	$haslo=$_POST['haslo'];
 	

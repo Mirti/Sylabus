@@ -11,17 +11,20 @@ require_once "connect.php";
 	$polaczenie -> query("SET NAMES 'utf8'");
 		if(!isset($_SESSION['zalogowany'])) header('Location:index.php');
 	
-	$przedmiot_id=$_POST['przedmiot_id'];
-	$efekt_id=$_POST['efekt_id'];
-	$sql='DELETE FROM przedmiot_efekt WHERE przedmiot_id='.$przedmiot_id.' AND efekt_id='.$efekt_id;
+	$literatura=$_POST['literatura'];
+	$przedmiot_id=$_POST['id'];
+	
+	$sql='SELECT * from literatura WHERE przedmiot_id='.$przedmiot_id;
+	$result=$polaczenie->query($sql);
+	if (is_null(mysqli_fetch_assoc($result))) $sql='INSERT INTO literatura(przedmiot_id,tresc) VALUES ('.$przedmiot_id.',"'.$literatura.'")';
+	else  $sql='UPDATE literatura SET tresc="'.$literatura.'" WHERE przedmiot_id='.$przedmiot_id;
+	echo $sql;
 	$polaczenie->query($sql);
+
 	$_SESSION['p_id']=$przedmiot_id;
 	
-		$polaczenie->close();
+	$polaczenie->close();
 	header ('Location: sylabus_edit.php');
-	
-	
-
 	
 ?>
 

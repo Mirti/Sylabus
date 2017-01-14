@@ -9,6 +9,7 @@ require_once "connect.php";
 		exit();
 	}
 	$polaczenie -> query("SET NAMES 'utf8'");
+		if(!isset($_SESSION['zalogowany'])) header('Location:index.php');
 	
 ?>
 
@@ -69,21 +70,21 @@ require_once "connect.php";
                 <td colspan="2">
 				<?php echo	'<input type="text" name="nazwisko" class="form-control" /> <br /> <br />'; ?>
                 </td>
-				 <td>Stopień: </td>
+				 <td>&nbsp;Stopień: </td>
                 <td colspan="2">
 				<?php echo	'<input type="text" name="stopien" class="form-control" /> <br /> <br />'; ?>
 				</td>
               </tr>
               <tr>
-                <td>&nbsp;&nbsp;&nbsp;E-mail: &nbsp;&nbsp;</td>
+                <td>E-mail: &nbsp;&nbsp;</td>
                 <td colspan="2">
                  <?php echo '<input type="text" name="email" class="form-control" /> <br /> <br />'; ?>
                 </td>
-                <td>&nbsp;&nbsp;Telefon: &nbsp;&nbsp;</td>
+                <td>&nbsp;Telefon: &nbsp;&nbsp;</td>
                 <td colspan="2">
                   <?php echo	'<input type="text" class="form-control" name=telefon /> <br /> <br />';?>
                 </td>
-				 <td>WWW: </td>
+				 <td>&nbsp;WWW: </td>
                 <td colspan="2">
                   <?php echo	'<input type="text" class="form-control" name=www /> <br /> <br />'; ?>
                 </td>
@@ -93,17 +94,19 @@ require_once "connect.php";
                 <td>Login: </td>
                 <td colspan="2">
                 <?php echo	'<input type="text" class="form-control" name=login /> <br /> <br />'; ?></td>
-				<td>Hasło: </td>
+				<td>&nbsp;Hasło: </td>
                 <td colspan="2">
                 <?php echo	'<input type="text" class="form-control" name=haslo /> <br /> <br />'; ?></td>
  
                 <td colspan="2">
-                  <input type="button" style="width:100%;" class="btn btn-primary" onclick="location.href='admin_panel.php';" value="Powrót" />
+                  
                 </td>
-                <td></td>
+                <td>
+                  <input type="button" style="width:40%;float:left;" class="btn btn-primary" onclick="location.href='admin_panel.php';" value="Powrót" />
+                  <input type="submit" style="width:40%;float:right;" class="btn btn-primary" value="Dodaj" />
+                </td>
 
                 <td colspan="2">
-                  <input type="submit" style="width:100%;" class="btn btn-primary" value="Dodaj" />
                 </td>
               </tr>
             </table>

@@ -9,6 +9,7 @@ require_once "connect.php";
 		exit();
 	}
 	$polaczenie -> query("SET NAMES 'utf8'");
+		if(!isset($_SESSION['zalogowany'])) header('Location:index.php');
 	
 ?>
 
@@ -24,7 +25,7 @@ require_once "connect.php";
 		<link rel="Shortcut icon" href="http://wiki.psrp.org.pl/images/7/77/Logo_urz_rzeszow.png">
 
           <link rel="stylesheet" href="css/styles.css?v=1.0">
-            <link rel="stylesheet" href="css/sylabuscss.css">
+            <link rel="stylesheet" href="css/sylabuscss_add.css">
 
               <!-- butstrap-->
               <!-- Latest compiled and minified CSS -->
@@ -67,13 +68,13 @@ require_once "connect.php";
             <table>
               <tr>
                 <td>Kierunek:</td>
-                <td colspan="2">
-                  <?php echo	'<input type="text" name="kierunek" class="form-control" value='.$row['kierunek'].' /> <br /> <br />'; ?>
+                <td colspan="2" >
+                  <?php echo	'<input type="text" name="kierunek" class="form-control" style="margin-top:5%;margin-bottom:-10%;" value='.$row['kierunek'].' /> <br /> <br />'; ?>
                 </td>
                
                 <td>&nbsp;Rok: &nbsp;</td>
                 <td colspan="2">
-					<select name="rok">
+					<select name="rok" class="form-control">
 				<?php echo '<option value='.$row['rok'].'>'.$row['rok'].'</option>'; ?>
 						<option value="I">I</option>
 						<option value="II">II</option>
@@ -82,9 +83,9 @@ require_once "connect.php";
 						<option value="V">V</option>
 					</select>
                 </td>
-				 <td>Tryb: </td>
+				 <td>&nbsp;Tryb: </td>
                 <td colspan="2">
-				<select name="tryb">
+				<select name="tryb" class="form-control">
 					<?php echo	'<option value='.$row['tryb'].'>'.$row['tryb'].'</option>'; ?>
 					<option value="stacjonarne">stacjonarne</option>
 					<option value="niestacjonarne">niestacjonarne</option>
@@ -92,9 +93,9 @@ require_once "connect.php";
 				</td>
               </tr>
               <tr>
-                <td>&nbsp;&nbsp;&nbsp;Wydział: &nbsp;&nbsp;</td>
+                <td>Wydział: &nbsp;&nbsp;</td>
                 <td colspan="2">
-                 <select name="wydzial_id">
+                 <select name="wydzial_id" class="form-control" >
 						<?php
 						$result2 = $polaczenie->query('SELECT * FROM wydzial w,rocznik r WHERE w.wydzial_id=r.wydzial_id AND w.wydzial_id='.$row['wydzial_id']);
 						$row2=mysqli_fetch_assoc($result2);
@@ -106,28 +107,33 @@ require_once "connect.php";
 						?>
 				 </select>
                 </td>
-                <td>&nbsp;&nbsp;Opiekun: &nbsp;&nbsp;</td>
+                <td>&nbsp;Opiekun: &nbsp;&nbsp;</td>
                 <td colspan="2">
                   <?php echo	'<input type="text" class="form-control" name=opiekun value='.$row['opiekun'].' /> <br /> <br />';?>
                 </td>
            
               </tr>
+              <tr><td>&nbsp;</td></tr>
               <tr>
  
                 <td colspan="2">
-                  <input type="button" style="width:100%;" class="btn btn-primary" onclick="location.href='admin_panel.php';" value="Powrót" />
+                  
                 </td>
-                <td></td>
+                <td>
+                  <input type="button" style="width:80%;float:right;"  class="btn btn-primary" onclick="location.href='admin_panel.php';" value="Powrót" />
+                </td>
 
                 <td colspan="2">
-                  <input type="submit" style="width:100%;" class="btn btn-primary" value="Zapisz zmiany" />
+                  
                 </td>
 				</form>
-				
+        <td>
+          <input type="submit" style="width:100%;" class="btn btn-primary" value="Zapisz zmiany" />
+        </td>
 				<td colspan="2">
                   <form action="year_delete.php" method="post">
 				  <input type="hidden" value=<?php  echo $id ?> name="rocznik_id" />
-				  <input type="submit" style="width:100%;" class="btn btn-primary" value="Usuń rocznik" /> 
+				  <input type="submit" style="width:80%;float:right;" class="btn btn-primary" value="Usuń rocznik" /> 
 				  </form>
                 </td>
               </tr>

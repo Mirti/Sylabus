@@ -62,14 +62,15 @@ require_once "connect.php";
 	$wynik=mysqli_fetch_assoc($rezultat);
   ?>
           <form action="save_to_db.php" method="post">
-
+            </br>
+            </br>
             <table>
               <tr>
                 <td>Nazwa przedmiotu:</td>
                 <td colspan="2">
                   <?php echo	'<input type="text"  class="form-control" value="'.$wynik['nazwa'].'"  readonly/> <br /> <br />'; ?>
                 </td>
-                <td>Kierunek: </td>
+                <td>&nbsp;Kierunek: </td>
                 <td colspan="2">
                   <?php echo	'<input type="text"  class="form-control" value="'.$wynik['kierunek'].'" readonly/> <br /> <br />';?>
                 </td>
@@ -79,7 +80,7 @@ require_once "connect.php";
                 </td>
               </tr>
               <tr>
-                <td>&nbsp;&nbsp;&nbsp;Sposób zaliczenia: &nbsp;&nbsp;</td>
+                <td>Sposób zaliczenia: &nbsp;&nbsp;</td>
                 <td colspan="2">
                  <?php echo	'<input type="text" class="form-control" value="'.$wynik['sposob_zaliczenia'].'" readonly/> <br /> <br />';?>
                 </td>
@@ -87,7 +88,7 @@ require_once "connect.php";
                 <td colspan="2">
                   <?php echo	'<input type="text" class="form-control"  value="'.$wynik['liczba_godzin'].'" readonly/> <br /> <br />';?>
                 </td>
-                <td>Rok: </td>
+                <td>&nbsp;Rok: </td>
                 <td colspan="2">
                   <?php echo	'<input type="text" class="form-control"  value="'.$wynik['rok'].'" readonly/> <br /> <br />'; ?>
                 </td>
@@ -95,19 +96,48 @@ require_once "connect.php";
               <tr>
                 <td>ECTS: </td>
                 <td colspan="2">
-                <?php echo	'<input type="text" class="form-control"  value="'.$wynik['ECTS'].'" readonly/> <br /> <br />'; ?></td>
+                  <?php echo	'<input type="text" class="form-control"  value="'.$wynik['ECTS'].'" readonly/> <br /> <br />'; ?>
+                </td>
                 <td></td>
                 <td colspan="2">
                   <input type="button" style="width:100%;" class="btn btn-primary" onclick="location.href='index.php';" value="Powrót" />
                 </td>
-				<td colspan="2">
-					<input type="button" class="btn btn-primary" onclick="location.href='matryca.xls';" value="Matryca" />
-				</td>
+                <td colspan="2">
+                  <input type="button" style="width:70%;float:right;" class="btn btn-primary" onclick="location.href='matryca.xls';" value="Matryca" />
+                </td>
+               
               </tr>
-
+             </table>
+			 
+			 <!-- Wymagania wstępne -->
+			 <h3>Wymagania wstępne</h3>
+			 <textarea>
+			 <?php
+			 $sql='SELECT * from wymagania_wstepne w,przedmiot p WHERE w.przedmiot_id=p.przedmiot_id AND w.przedmiot_id='.$id;
+			 $result = $polaczenie->query($sql);
+			 $row=mysqli_fetch_assoc($result);
+			 echo $row['tresc'];
+				?>
+			 </textarea>
+			 
+			 <!-- Cele -->
+			 <h3>Cele przedmiotu</h3>
+			 <table class="table table-hover table-bordered">
+			 <th class="info">Kod</th>
+			 <th class="info">Treść</th>
+			  <?php
+    $result = $polaczenie->query("SELECT c.kod,c.tresc FROM cel c, przedmiot_cel pc, przedmiot p WHERE c.cel_id=pc.cel_id AND p.przedmiot_id=pc.przedmiot_id AND p.przedmiot_id=".$id);
+	while ($row=mysqli_fetch_assoc($result)): 
+		
+       echo '<tr><td>'.$row['kod'].'<td>'.$row['tresc'].'</td></tr>';
+    endwhile;
+	?>
+            
 			          <!-- pierwsza tabela-->
 
-
+                </br>
+                </br>
+		<h3>Efekty kształcenia</h3>
         <table class="table table-hover table-bordered" >
           <th class="info">
             EK<br />(Efekt Kształcenia)
@@ -123,10 +153,11 @@ require_once "connect.php";
        echo '<form action="effect_delete.php" method="post"><input type="hidden" name="przedmiot_id" value='.$id.'><input type="hidden" name="efekt_id" value='.$row['efekt_id'].'><tr><td>'.$row['kod'].'<td>'.$row['opis'].'</td><td>'.$row['KEK'].'</td></tr></form>';
     endwhile;
 	?>
-        
+
 
         </table>
-
+        </br>
+        </br>
         <!-- druga tabela-->
         <br />
         <br />
@@ -134,7 +165,7 @@ require_once "connect.php";
         <br />
 
 
-
+		<h3>Efekty kształcenia</h3>
         <table class="table table-hover table-bordered" >
           <th class="info" style="font-size:120%;">Nazwa</th>
           <th class="info" style="font-size:120%;">Sposób sprawdzenia</th>
@@ -153,7 +184,7 @@ require_once "connect.php";
         <br />
 
         <!-- trzecia tabela-->
-
+		<h3>Treści programowe</h3>
         <table class="table table-hover table-bordered" >
           <th class="info" style="font-size:120%;">Treść programowa</th>
           <?php
@@ -164,19 +195,35 @@ require_once "connect.php";
 	?>
 
         </table>
+		
+		
+
+
+		<h3>Literatura</h3>
+		 <textarea>
+			 <?php
+			 $sql='SELECT * from literatura l,przedmiot p WHERE l.przedmiot_id=p.przedmiot_id AND l.przedmiot_id='.$id;
+			 $result = $polaczenie->query($sql);
+			 $row=mysqli_fetch_assoc($result);
+			 echo $row['tresc'];
+				?>
+			 </textarea>
+			 
+        </div>
+      
           <?php
   $polaczenie->close();
   ?>
 
-
-        </div>
-      
-
-
     </div>
 
   </body>
-  <footer class="footer" style="bottom:0px;width: 100%;background-color:#071778;text-align: center;font-size: 1.4em;line-height: 1.5em;color: #c8c8c8;">
-    Aleja Tadeusza Rejtana 16C, 35-001 Rzeszów
+  <footer class="footer">
+    Uniwersytet Rzeszowski <br />Aleja Tadeusza Rejtana 16C,<br /> 35-001 Rzeszów
+    <p style="font-size:0.7em">
+      tel. + 48 17 872 10 00 (centrala telefoniczna)<br />
+      tel/fax: + 48 17 872 12 <a href="https://www.youtube.com/watch?v=OSCiMbMVDLI" style="text-decoration:none; color:white">65</a><br />
+      e-mail:<a href="mailto:infor@ur.edu.pl">info@ur.edu.pl</a>
+    </p>
   </footer>
 </html>

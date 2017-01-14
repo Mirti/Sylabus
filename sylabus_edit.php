@@ -9,6 +9,7 @@ require_once "connect.php";
 		exit();
 	}
 	$polaczenie -> query("SET NAMES 'utf8'");
+		if(!isset($_SESSION['zalogowany'])) header('Location:index.php');
 	
 ?>
 
@@ -24,7 +25,7 @@ require_once "connect.php";
           <link rel="Shortcut icon" href="http://wiki.psrp.org.pl/images/7/77/Logo_urz_rzeszow.png">
 
             <link rel="stylesheet" href="css/styles.css?v=1.0">
-              <link rel="stylesheet" href="css/glowny.css">
+              <link rel="stylesheet" href="css/sylabuscss.css">
 
                 <!-- butstrap-->
                 <!-- Latest compiled and minified CSS -->
@@ -32,7 +33,6 @@ require_once "connect.php";
 
                   <!-- jQuery library -->
                   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-
                   <!-- Latest compiled JavaScript -->
                   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
                   <!-- tabela-->
@@ -75,25 +75,25 @@ require_once "connect.php";
               <td colspan="2">
                 <?php echo	'<input type="text" name="nazwa" class="form-control" value="'.$wynik['nazwa'].'"/> <br /> <br />'; ?>
               </td>
-              <td>Kierunek: </td>
+              <td>&nbsp;&nbsp;Kierunek: </td>
               <td colspan="2">
                 <?php echo	'<input type="text" name="kierunek" class="form-control" value="'.$wynik['kierunek'].'"/> <br /> <br />';?>
               </td>
               <td>&nbsp;Typ zajęć: &nbsp;</td>
               <td colspan="2">
-                <?php echo	'<select name="typ_zajec" class="selectpicker" name="typ_zajec" style="height:50%;width:100%;margin-top:5%;margin-bottom:-10%;"><option value='.$wynik['typ_zajec'].'>'.$wynik['typ_zajec'].'</option><option value="wykład">wykład</option><option value="ćwiczenia">ćwiczenia</option><option value="labolatorium">labolatorium</option><option value="seminarium">seminarium</option></select> <br /> <br />'; ?>
+                <?php echo	'<select name="typ_zajec" class="form-control" name="typ_zajec" style="height:50%;width:100%;margin-top:5%;margin-bottom:-10%;"><option value='.$wynik['typ_zajec'].'>'.$wynik['typ_zajec'].'</option><option value="wykład">wykład</option><option value="ćwiczenia">ćwiczenia</option><option value="labolatorium">labolatorium</option><option value="seminarium">seminarium</option></select> <br /> <br />'; ?>
               </td>
             </tr>
             <tr>
-              <td>&nbsp;&nbsp;&nbsp;Sposób zaliczenia: &nbsp;&nbsp;</td>
+              <td>Sposób zaliczenia: &nbsp;&nbsp;</td>
               <td colspan="2">
-                <?php echo	'<select name="sposob_zaliczenia" class="selectpicker" style="height:50%;width:100%;margin-top:5%;margin-bottom:-10%;"><option value='.$wynik['sposob_zaliczenia'].'>'.$wynik['sposob_zaliczenia'].'</option><option value="egzamin">egzamin</option><option value="ocena">ocena</option><option value="zaliczenie">zaliczenie</option></select> <br /> <br />'; ?>
+                <?php echo	'<select name="sposob_zaliczenia" class="form-control" style="height:50%;width:100%;margin-top:5%;margin-bottom:-10%;"><option value='.$wynik['sposob_zaliczenia'].'>'.$wynik['sposob_zaliczenia'].'</option><option value="egzamin">egzamin</option><option value="ocena">ocena</option><option value="zaliczenie">zaliczenie</option></select> <br /> <br />'; ?>
               </td>
               <td>&nbsp;&nbsp;Liczba godzin: &nbsp;&nbsp;</td>
               <td colspan="2">
                 <?php echo	'<input type="text" class="form-control" name=liczba_godzin value="'.$wynik['liczba_godzin'].'"/> <br /> <br />';?>
               </td>
-              <td>Rok: </td>
+              <td>&nbsp;&nbsp;Rok: </td>
               <td colspan="2">
                 <?php echo	'<input type="text" class="form-control" name=rok value="'.$wynik['rok'].'"/> <br /> <br />'; ?>
               </td>
@@ -116,10 +116,55 @@ require_once "connect.php";
           </table>
         </form>
 
+		
+					 <!-- Wymagania wstępne -->
+			 <h3>Wymagania wstępne</h3>
+			 <form action="edit_pre_requirements.php" method="post">
+			 <input type="hidden" name="id" value=<?php echo $id ?>>
+			 <textarea name="wymagania">
+			 <?php
+			 $sql='SELECT * from wymagania_wstepne w,przedmiot p WHERE w.przedmiot_id=p.przedmiot_id AND w.przedmiot_id='.$id;
+			 $result = $polaczenie->query($sql);
+			 $row=mysqli_fetch_assoc($result);
+			 echo $row['tresc'];
+				?>
+			 </textarea>
+			 <input type="submit" class="btn btn-primary" value="Zapisz">
+			 </form>
 
+			 <!-- cele -->
+			 <h3>Cele przedmiotu </h3>
+			 <table class="table table-hover table-bordered" >
+          <th class="info">Kod </th>
+          <th class="info">Treść</th>
+          <th class="info">Dodaj/Usuń</th>
+          <?php
+    $result = $polaczenie->query("SELECT c.cel_id, c.kod, c.tresc FROM cel c, przedmiot p, przedmiot_cel pc WHERE p.przedmiot_id=pc.przedmiot_id AND c.cel_id=pc.cel_id AND p.przedmiot_id=".$id);
+	while ($row=mysqli_fetch_assoc($result)): 
+		
+       echo '<form action="target_delete.php" method="post"><input type="hidden" name="przedmiot_id" value='.$id.'><input type="hidden" name="cel_id" value='.$row['cel_id'].'><tr><td>'.$row['kod'].'<td>'.$row['tresc'].'</td><td><input type="submit" class="btn btn-danger" value="Usuń"</td></tr></form>';
+    endwhile;
+	?>
+          <form action="target_add.php" method="post">
+            <tr>
+              <input type="hidden" name="id" value="<?php echo $id; ?>">
+              <td>
+                <input style="all:inherit" type="text" name="kod" />
+              </td>
+              <td>
+                <input style="height:50%;width:100%;margin-top:0.5%;margin-bottom:-10%;" class="form-control" type="text" name="tresc" />
+              </td>
+              <td>
+                <input type="submit" class="btn btn-primary" value="Dodaj" />
+              </td>
+            </tr>
+          </form>
+
+        </table>
+			 
         <!-- pierwsza tabela-->
 
-
+		<h3>Efekty kształcenia</h3>
         <table class="table table-hover table-bordered" >
           <th class="info">
             EK<br />(Efekt Kształcenia)
@@ -163,7 +208,7 @@ require_once "connect.php";
         <br />
 
 
-
+		<h3>Wymagania</h3>
         <table class="table table-hover table-bordered" >
           <th class="info" style="font-size:120%;">Nazwa</th>
           <th class="info" style="font-size:120%;">Sposób sprawdzenia</th>
@@ -202,7 +247,7 @@ require_once "connect.php";
         <br />
 
         <!-- trzecia tabela-->
-
+		<h3>Treści programowe</h3>
         <table class="table table-hover table-bordered" >
           <th class="info" style="font-size:120%;">Treść programowa</th>
           <th class="info" style="font-size:120%;">Dodaj/Usuń</th>
@@ -226,6 +271,21 @@ require_once "connect.php";
           </form>
 
         </table>
+		
+		<!-- Literatura-->
+		<h3>Literatura</h3>
+			 <form action="edit_literature.php" method="post">
+			<input type="hidden" name="id" value=<?php echo $id ?>>
+			 <textarea name="literatura">
+			 <?php
+			 $sql='SELECT * from literatura l,przedmiot p WHERE l.przedmiot_id=p.przedmiot_id AND l.przedmiot_id='.$id;
+			 $result = $polaczenie->query($sql);
+			 $row=mysqli_fetch_assoc($result);
+			 echo $row['tresc'];
+				?>
+			 </textarea>
+			 <input type="submit" class="btn btn-primary" value="Zapisz">
+			 </form>
 
         <?php
   $polaczenie->close();

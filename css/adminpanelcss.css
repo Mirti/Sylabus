@@ -129,6 +129,12 @@ body{
         padding:15px;
       }
 
+
+          input[type="text"] {
+             margin-top:10%;
+             margin-bottom:-10%;
+        }
+
 .footer {
 width: 100%;
 position:relative;

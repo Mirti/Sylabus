@@ -12,8 +12,8 @@ require_once "connect.php";
 		if(!isset($_SESSION['zalogowany'])) header('Location:index.php');
 	
 	$przedmiot_id=$_POST['przedmiot_id'];
-	$efekt_id=$_POST['efekt_id'];
-	$sql='DELETE FROM przedmiot_efekt WHERE przedmiot_id='.$przedmiot_id.' AND efekt_id='.$efekt_id;
+	$cel_id=$_POST['cel_id'];
+	$sql='DELETE FROM przedmiot_cel WHERE przedmiot_id='.$przedmiot_id.' AND cel_id='.$cel_id;
 	$polaczenie->query($sql);
 	$_SESSION['p_id']=$przedmiot_id;
 	

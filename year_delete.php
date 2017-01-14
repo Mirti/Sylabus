@@ -9,6 +9,7 @@ require_once "connect.php";
 		exit();
 	}
 	$polaczenie -> query("SET NAMES 'utf8'");
+		if(!isset($_SESSION['zalogowany'])) header('Location:index.php');
 	
 	$rocznik_id=$_POST['rocznik_id'];
 	$sql='DELETE FROM rocznik WHERE rocznik_id="'.$rocznik_id.'"';

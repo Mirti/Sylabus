@@ -9,6 +9,7 @@ require_once "connect.php";
 		exit();
 	}
 	$polaczenie -> query("SET NAMES 'utf8'");
+		if(!isset($_SESSION['zalogowany'])) header('Location:index.php');
 	
 	$prowadzacy_id=$_POST['prowadzacy_id'];
 	$sql='DELETE FROM prowadzacy WHERE prowadzacy_id="'.$prowadzacy_id.'"';
