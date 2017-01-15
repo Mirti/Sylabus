@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 session_start();
 require_once "connect.php";
 	$polaczenie = @new mysqli($host, $db_user, $db_password, $db_name);
@@ -63,11 +63,12 @@ require_once "connect.php";
 		  else $id=$_SESSION['p_id'];
 	
 	$_SESSION['edit_id']=$id;
-	$sql= 'SELECT * FROM przedmiot p, efekt e, przedmiot_efekt pe, rocznik r WHERE p.przedmiot_id=pe.przedmiot_id AND p.rocznik_id=r.rocznik_id AND e.efekt_id=pe.efekt_id AND p.przedmiot_id='.$id;
+	$sql= 'SELECT * FROM przedmiot p, rocznik r WHERE p.rocznik_id=r.rocznik_id AND p.przedmiot_id='.$id;
 	$rezultat= $polaczenie->query($sql);
 	$wynik=mysqli_fetch_assoc($rezultat);
+	$_SESSION['p_name']=$wynik['nazwa'];
   ?>
-        <form action="save_to_db.php" method="post">
+        <form style="margin-left:7%;" action="save_to_db.php" method="post">
 
           <table>
             <tr>
@@ -115,23 +116,25 @@ require_once "connect.php";
             </tr>
           </table>
         </form>
+	 <input type="button" style="width:100%;" class="btn btn-primary" onclick="window.location.href='generate_pdf.php'" value="Generuj PDF" />
 
 		
 					 <!-- Wymagania wstępne -->
 			 <h3>Wymagania wstępne</h3>
 			 <form action="edit_pre_requirements.php" method="post">
 			 <input type="hidden" name="id" value=<?php echo $id ?>>
-			 <textarea name="wymagania">
+			 <textarea style="width:100%;min-height:100px;" name="wymagania">
 			 <?php
 			 $sql='SELECT * from wymagania_wstepne w,przedmiot p WHERE w.przedmiot_id=p.przedmiot_id AND w.przedmiot_id='.$id;
 			 $result = $polaczenie->query($sql);
 			 $row=mysqli_fetch_assoc($result);
 			 echo $row['tresc'];
-				?>
+             ?>
 			 </textarea>
-			 <input type="submit" class="btn btn-primary" value="Zapisz">
+			 <input type="submit" style="float:right;width:20%;" class="btn btn-primary" value="Zapisz">
 			 </form>
-
+		  <br />
+        <br />
 			 <!-- cele -->
 			 <h3>Cele przedmiotu </h3>
 			 <table class="table table-hover table-bordered" >
@@ -159,9 +162,9 @@ require_once "connect.php";
               </td>
             </tr>
           </form>
-
         </table>
-			 
+          <br />
+          <br />
         <!-- pierwsza tabela-->
 
 		<h3>Efekty kształcenia</h3>
@@ -204,8 +207,6 @@ require_once "connect.php";
         <!-- druga tabela-->
         <br />
         <br />
-        <br />
-        <br />
 
 
 		<h3>Wymagania</h3>
@@ -244,7 +245,6 @@ require_once "connect.php";
 
         <br />
         <br />
-        <br />
 
         <!-- trzecia tabela-->
 		<h3>Treści programowe</h3>
@@ -271,20 +271,22 @@ require_once "connect.php";
           </form>
 
         </table>
+		  <br />
+        <br />
 		
 		<!-- Literatura-->
 		<h3>Literatura</h3>
 			 <form action="edit_literature.php" method="post">
 			<input type="hidden" name="id" value=<?php echo $id ?>>
-			 <textarea name="literatura">
+			 <textarea style="width:100%;min-height:100px;" name="literatura">
 			 <?php
 			 $sql='SELECT * from literatura l,przedmiot p WHERE l.przedmiot_id=p.przedmiot_id AND l.przedmiot_id='.$id;
 			 $result = $polaczenie->query($sql);
 			 $row=mysqli_fetch_assoc($result);
 			 echo $row['tresc'];
-				?>
+             ?>
 			 </textarea>
-			 <input type="submit" class="btn btn-primary" value="Zapisz">
+			 <input type="submit" style="float:right;width:20%;" class="btn btn-primary" value="Zapisz">
 			 </form>
 
         <?php

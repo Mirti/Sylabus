@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 session_start();
 require_once "connect.php";
 	$polaczenie = @new mysqli($host, $db_user, $db_password, $db_name);
@@ -111,28 +111,28 @@ require_once "connect.php";
 			 
 			 <!-- Wymagania wstępne -->
 			 <h3>Wymagania wstępne</h3>
-			 <textarea>
-			 <?php
+		  	<textarea style="width:100%;min-height:100px;" disabled>
+		  		<?php
 			 $sql='SELECT * from wymagania_wstepne w,przedmiot p WHERE w.przedmiot_id=p.przedmiot_id AND w.przedmiot_id='.$id;
 			 $result = $polaczenie->query($sql);
 			 $row=mysqli_fetch_assoc($result);
 			 echo $row['tresc'];
-				?>
-			 </textarea>
+		  		?>
+		  	</textarea>
 			 
-			 <!-- Cele -->
-			 <h3>Cele przedmiotu</h3>
-			 <table class="table table-hover table-bordered">
-			 <th class="info">Kod</th>
-			 <th class="info">Treść</th>
-			  <?php
-    $result = $polaczenie->query("SELECT c.kod,c.tresc FROM cel c, przedmiot_cel pc, przedmiot p WHERE c.cel_id=pc.cel_id AND p.przedmiot_id=pc.przedmiot_id AND p.przedmiot_id=".$id);
-	while ($row=mysqli_fetch_assoc($result)): 
+				 <!-- Cele -->
+				 <h3>Cele przedmiotu</h3>
+				 <table class="table table-hover table-bordered">
+				 <th class="info">Kod</th>
+				 <th class="info">Treść</th>
+				  <?php
+		$result = $polaczenie->query("SELECT c.kod,c.tresc FROM cel c, przedmiot_cel pc, przedmiot p WHERE c.cel_id=pc.cel_id AND p.przedmiot_id=pc.przedmiot_id AND p.przedmiot_id=".$id);
+		while ($row=mysqli_fetch_assoc($result)): 
 		
-       echo '<tr><td>'.$row['kod'].'<td>'.$row['tresc'].'</td></tr>';
-    endwhile;
-	?>
-            
+		   echo '<tr><td>'.$row['kod'].'<td>'.$row['tresc'].'</td></tr>';
+		endwhile;
+		?>
+            </table>
 			          <!-- pierwsza tabela-->
 
                 </br>
@@ -159,13 +159,10 @@ require_once "connect.php";
         </br>
         </br>
         <!-- druga tabela-->
-        <br />
-        <br />
-        <br />
-        <br />
+        
 
 
-		<h3>Efekty kształcenia</h3>
+		<h3>Wymagania</h3>
         <table class="table table-hover table-bordered" >
           <th class="info" style="font-size:120%;">Nazwa</th>
           <th class="info" style="font-size:120%;">Sposób sprawdzenia</th>
@@ -174,17 +171,16 @@ require_once "connect.php";
 	while ($row=mysqli_fetch_assoc($result)): 
        echo '<form action="requirement_delete.php" method="post"><input type="hidden" name="przedmiot_id" value='.$id.'><input type="hidden" name="wymaganie_id" value='.$row['wymaganie_id'].'><tr><td>'.$row['nazwa'].'<td>'.$row['sposob_sprawdzenia'].'</td></tr></form>';
     endwhile;
-	?>
+          ?>
  
 
         </table>
 
         <br />
         <br />
-        <br />
 
         <!-- trzecia tabela-->
-		<h3>Treści programowe</h3>
+		  	<h3>Treści programowe</h3>
         <table class="table table-hover table-bordered" >
           <th class="info" style="font-size:120%;">Treść programowa</th>
           <?php
@@ -192,22 +188,23 @@ require_once "connect.php";
 	while ($row=mysqli_fetch_assoc($result)): 
        echo '<form action="content_delete.php" method="post"><input type="hidden" name="przedmiot_id" value='.$id.'><input type="hidden" name="tresc_id" value='.$row['tresc_id'].'><tr><td>'.$row['opis'].'</td></tr></form>';
     endwhile;
-	?>
+          ?>
 
         </table>
 		
 		
 
-
-		<h3>Literatura</h3>
-		 <textarea>
-			 <?php
+		  	<br />
+		  	<br />
+		  	<h3>Literatura</h3>
+		  	<textarea style="width:100%;min-height:100px;" disabled>
+		  		<?php
 			 $sql='SELECT * from literatura l,przedmiot p WHERE l.przedmiot_id=p.przedmiot_id AND l.przedmiot_id='.$id;
 			 $result = $polaczenie->query($sql);
 			 $row=mysqli_fetch_assoc($result);
 			 echo $row['tresc'];
-				?>
-			 </textarea>
+		  		?>
+		  	</textarea>
 			 
         </div>
       
